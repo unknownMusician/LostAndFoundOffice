@@ -2,9 +2,9 @@
 
 public class Pile : Grabbable {
 
-    [SerializeField] private Piece piece;
+    [SerializeField] private Item item;
 
     public override GrabbablePlaceable Grab() {
-        return Instantiate(piece.gameObject).GetComponent<GrabbablePlaceable>();
+        return Instantiate(item.gameObject).GetComponent<GrabbablePlaceable>();
     }
 }

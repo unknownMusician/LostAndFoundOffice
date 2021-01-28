@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 
 
-public class ObjectImagesController : MonoBehaviour
+namespace CustomerSpawning
 {
-    public Sprite[] images;
+    public class ObjectImagesController : MonoBehaviour
+    {
+        public Sprite[] images;
+    }
 }

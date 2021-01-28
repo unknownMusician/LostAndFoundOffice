@@ -34,9 +34,9 @@ namespace Interaction.Service {
         protected InteractionType[] HowCanIInteract() {
             var types = new List<InteractionType>();
 
-            // todo: correct order
-            // todo: actually, can't place (can only grab)
-            if (holdedItem != null) { types.Add(InteractionType.Drop); } // todo: make smaller
+            // TODO: correct order
+            // TODO: actually, can't place (can only grab)
+            if (holdedItem != null) { types.Add(InteractionType.Drop); } // TODO: make smaller
             if (holdedItem == null) { types.Add(InteractionType.Grab); }
             if (holdedItem != null) { types.Add(InteractionType.Receive); }
 

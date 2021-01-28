@@ -39,17 +39,19 @@ namespace Interaction {
 
         public void ReceiveOrder(CustomerSpawning.Customer customer) {
             print($"Received order from customer: \"{customer}\"");
-            // todo
+            this.customer = customer;
+            customerGavePainting = true; // TODO
+            // TODO
         }
 
-        private void Test() { // todo
+        private void Test() { // TODO
             // if Success (Received right and in time)
             // customer.ReceiveAnswer();
         }
 
         private void SendItemToManager(Item item) {
             item.Grab(customer.transform, Vector3.forward);
-            // todo
+            // TODO
         }
     }
 }

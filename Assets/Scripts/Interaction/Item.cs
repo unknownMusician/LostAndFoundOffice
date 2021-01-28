@@ -21,7 +21,7 @@ namespace Interaction {
         public InteractionType[] HowToInteract() {
             var types = new List<InteractionType>();
 
-            // todo: correct order
+            // TODO: correct order
             if (TryDrop()) { types.Add(InteractionType.Drop); }
             if (TryGrab()) { types.Add(InteractionType.Grab); }
 

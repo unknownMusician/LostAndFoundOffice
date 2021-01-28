@@ -64,7 +64,7 @@ namespace Interaction {
 
         private Coroutine waitCoroutine = null; // todo
         private IEnumerator WaitCoroutine(CustomerSpawning.Customer customer) { // todo
-            for (int i = 5; i > 0; i++) {
+            for (int i = 5; i > 0; i--) {
                 yield return new WaitForSeconds(1);
                 print(i);
             }

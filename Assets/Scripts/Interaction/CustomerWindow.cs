@@ -51,7 +51,7 @@ namespace Interaction {
                 item.Grab(customer.transform, Vector3.forward);
                 customer.ReceiveAnswer(true);
             } else {
-                customer.ReceiveAnswer(null);
+                customer.ReceiveAnswer(false);
             }
             if (waitCoroutine != null) {
                 StopCoroutine(waitCoroutine);

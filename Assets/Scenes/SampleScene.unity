@@ -1828,8 +1828,8 @@ GameObject:
   - component: {fileID: 1331133825}
   - component: {fileID: 1331133827}
   - component: {fileID: 1331133826}
-  - component: {fileID: 1331133824}
   - component: {fileID: 1331133823}
+  - component: {fileID: 1331133824}
   m_Layer: 0
   m_Name: Customer Spawner
   m_TagString: Untagged
@@ -1849,14 +1849,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 121856ccfe18999458dc0c1bbe405da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enteringTheBuildingRoute:
-  - {x: -15, y: 1, z: 15}
-  - {x: -20, y: 1, z: 10}
-  - {x: -15, y: 1, z: 5}
-  exitingTheBuildingRoute:
-  - {x: -15, y: 1, z: 5}
-  - {x: -10, y: 1, z: 10}
-  - {x: -15, y: 1, z: 15}
+  enterRoute:
+  - {x: -8, y: 1, z: 15}
+  - {x: -13, y: 1, z: 10}
+  - {x: -8, y: 1, z: 5}
+  exitRoute:
+  - {x: -8, y: 1, z: 5}
+  - {x: -3, y: 1, z: 10}
+  - {x: -8, y: 1, z: 15}
   speed: 0.5
 --- !u!114 &1331133824
 MonoBehaviour:
@@ -1915,6 +1915,7 @@ MonoBehaviour:
   customersArrayMenu: {fileID: 1235160571}
   customerPrefab: {fileID: 7816233233346525594, guid: 984af3f9e7b618945a5b32d6ff928413,
     type: 3}
+  allowedAmountOfCustomers: 2
 --- !u!4 &1341345774 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3010578107257965801, guid: f23651987de8ed944a7c72a3326f18d1,

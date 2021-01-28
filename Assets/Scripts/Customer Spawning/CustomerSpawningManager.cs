@@ -54,21 +54,6 @@ namespace CustomerSpawning
 
                 newCustomer = customerPooling.Pool.Dequeue();
                 newCustomer.SetActive(true);
-                newCustomer.GetComponent<Customer>().ConfigureProperties();
-            }
-        }
-        private void TakeCustomer(int objectToFindID, float timeToSearch, Sprite image)
-        {
-            // Если какой-то клиент уже был заспавлен - пакуем его в переменную oldCustomer
-            // Если можно спавнить клиентов - достаем клиента из пула, активируем и настраиваем его
-
-            if (allowCustomerSpawning)
-            {
-                if (newCustomer != null) oldCustomer = newCustomer;
-
-                newCustomer = customerPooling.Pool.Dequeue();
-                newCustomer.SetActive(true);
-                newCustomer.GetComponent<Customer>().ConfigureProperties(objectToFindID, timeToSearch, image);
             }
         }
         public void PutCustomer()

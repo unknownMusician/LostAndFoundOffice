@@ -7,6 +7,7 @@ namespace Interaction {
     public class Item : MonoBehaviour, IDroppable, IGrabbable {
 
         protected new Rigidbody rigidbody;
+        protected new Collider collider;
 
         protected ItemState state = ItemState.Dropped;
 
@@ -34,6 +35,7 @@ namespace Interaction {
             state = ItemState.Dropped;
             transform.SetParent(null);
             rigidbody.isKinematic = false;
+            collider.enabled = true;
         }
 
         public bool TryDrop() {
@@ -50,6 +52,7 @@ namespace Interaction {
             transform.localPosition = newLocalPos;
             transform.localRotation = Quaternion.identity;
             rigidbody.isKinematic = true;
+            collider.enabled = false;
             return this;
         }
 

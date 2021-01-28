@@ -3,8 +3,8 @@
 
 public class AllCustomersMovingManager : MonoBehaviour
 {
-    public Vector3[] enteringTheBuildingRoute;
-    public Vector3[] exitingTheBuildingRoute;
+    public Vector3[] enterRoute;                // Маршрут ВХОДА в здание
+    public Vector3[] exitRoute;                 // Маршрут ВЫХОДА из здания
     public Vector3[][] Routes { get; set; }
 
     public float speed;
@@ -12,7 +12,7 @@ public class AllCustomersMovingManager : MonoBehaviour
     void Awake()
     {
         Routes = new Vector3[2][];
-        Routes[0] = enteringTheBuildingRoute;
-        Routes[1] = exitingTheBuildingRoute;
+        Routes[0] = enterRoute;
+        Routes[1] = exitRoute;
     }
 }

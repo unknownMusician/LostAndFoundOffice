@@ -5,34 +5,38 @@ public class Customer : MonoBehaviour
 {
     #region Properties
 
-    private Sprite[] customerImages;
+    private Sprite[] objectImages;              // Список изображений, которые приносят клиенты
 
-    public int IDOfObjectToFind { get; set; }
-    public float TimeForSearching { get; set; }
-    public Sprite ImageOfObjectToFind { get; set; }
+    public int ObjectID { get; set; }           // Уникальный айди объекта, который нужно найти (предположительно каждой модели - свой айди)
+    public float ObjectTime { get; set; }       // Время на нахождение объекта
+    public Sprite ObjectImage { get; set; }     // Картинка объекта, которую приносит клиент
 
     #endregion
 
     void Awake()
     {
-        customerImages = transform.parent.parent.GetComponent<CustomerImagesToFindController>().images;
+        objectImages = transform.parent.parent.GetComponent<ObjectImagesController>().images;
     }
 
     #region Methods
 
     public void ConfigureProperties()
     {
-        IDOfObjectToFind = Random.Range(0, 5);
-        TimeForSearching = Random.Range(10, 20);
+        // Настраиваем клиента случайным образом
 
-        int imageID = Random.Range(0, customerImages.Length);
-        ImageOfObjectToFind = customerImages[imageID];
-    }
+        ObjectID = Random.Range(0, 5);
+        ObjectTime = Random.Range(10, 20);
+
+        int imageID = Random.Range(0, objectImages.Length);
+        ObjectImage = objectImages[imageID];
+    }                                                           
     public void ConfigureProperties(int objectToFindID, float timeToSearch, Sprite image)
     {
-        this.IDOfObjectToFind = objectToFindID;
-        this.TimeForSearching = timeToSearch;
-        this.ImageOfObjectToFind = image;
+        // Вручную присваеваем значения всем основным переменным клиента
+
+        this.ObjectID = objectToFindID;
+        this.ObjectTime = timeToSearch;
+        this.ObjectImage = image;
     }
 
     #endregion

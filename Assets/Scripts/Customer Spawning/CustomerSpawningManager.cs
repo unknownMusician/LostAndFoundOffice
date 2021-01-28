@@ -23,50 +23,68 @@ public class CustomerSpawningManager : MonoBehaviour
     void Start()
     {
         allowCustomerSpawning = true;
-        StartCoroutine(TakeCustomerFromPoolAfterFixedTime(1f));
+        StartCoroutine(TESTTakeCustomerAfterFixedTime(1f));
     }
 
     #region Methods
 
-    public void StartCustomerSpawningCycle()
+    public void StartSpawning()
     {
+        // Начинаем спавнить клиентов друг за другом
+
         allowCustomerSpawning = true;
-        TakeNewCustomerFromPoolAndConfigureHim();
+        TakeCustomer();
     }
-    public void StopCustomerSpawningCycle()
+    public void StopSpawning()
     {
+        // Заканчиваем спавнить клиентов друг за другом
+
         allowCustomerSpawning = false;
     }
 
-    public void TakeNewCustomerFromPoolAndConfigureHim()
+    public void TakeCustomer()
     {
-        if (newCustomer != null)
-        {
-            oldCustomer = newCustomer;
-        }
+        // Если какой-то клиент уже был заспавлен - пакуем его в переменную oldCustomer
+        // Если можно спавнить клиентов - достаем клиента из пула, активируем и настраиваем его случайным образом
+
         if (allowCustomerSpawning)
         {
+            if(newCustomer != null) oldCustomer = newCustomer;
+
             newCustomer = customerPooling.Pool.Dequeue();
             newCustomer.SetActive(true);
             newCustomer.GetComponent<Customer>().ConfigureProperties();
         }
     }
-    private void TakeNewCustomerFromPoolAndConfigureHim(int objectToFindID, float timeToSearch, Sprite image)
+    private void TakeCustomer(int objectToFindID, float timeToSearch, Sprite image)
     {
-        newCustomer = customerPooling.Pool.Dequeue();
-        newCustomer.SetActive(true);
-        newCustomer.GetComponent<Customer>().ConfigureProperties(objectToFindID, timeToSearch, image);
+        // Если какой-то клиент уже был заспавлен - пакуем его в переменную oldCustomer
+        // Если можно спавнить клиентов - достаем клиента из пула, активируем и настраиваем его
+
+        if(allowCustomerSpawning)
+        {
+            if(newCustomer != null) oldCustomer = newCustomer;
+
+            newCustomer = customerPooling.Pool.Dequeue();
+            newCustomer.SetActive(true);
+            newCustomer.GetComponent<Customer>().ConfigureProperties(objectToFindID, timeToSearch, image);
+        }
     }
-    public void PutOldCustomerToPool()
+    public void PutCustomer()
     {
+        // Ложим уходящего клиента обратно в пул
+
         customerPooling.Pool.Enqueue(oldCustomer);
         oldCustomer.SetActive(false);
     }
 
-    private IEnumerator TakeCustomerFromPoolAfterFixedTime(float time)
+    private IEnumerator TESTTakeCustomerAfterFixedTime(float time)
     {
+        // Тестовый метод, который нужен только для проверки
+        // Выполняем функцкию TakeCustomer() после заданного промежутка времени
+
         yield return new WaitForSeconds(time);
-        TakeNewCustomerFromPoolAndConfigureHim();
+        TakeCustomer();
     }
     
     #endregion

@@ -19,8 +19,6 @@ namespace CustomerSpawning
         private int IdOfCurrentGoalPoint;                   // ID текущей целевой точки в маршруте
         private Vector3 moveVector;                         // Вектор, направляющий customer'a от одной точки к другой
 
-        private Coroutine testCycleCoroutine;               // ТЕСТОВАЯ ПЕРЕМЕННАЯ! Нужна для проверки алгоритма. Хранит в себе корутину цикла спавна клиентов
-
         #endregion
 
         #region Behaviour methods
@@ -43,11 +41,7 @@ namespace CustomerSpawning
             IdOfCurrentGoalPoint = 0;
             moveVector = Vector3.zero;
             transformComponent.position = allCustomerMovingManager.Routes[IdOfCurrentRoute][IdOfCurrentGoalPoint];
-            testCycleCoroutine = StartCoroutine(EnterAndExitTestCycle());
-        }
-        void OnDisable()
-        {
-            StopCoroutine(testCycleCoroutine);
+            EnterBuilding();
         }
         void FixedUpdate()
         {
@@ -140,16 +134,8 @@ namespace CustomerSpawning
             IdOfCurrentRoute = 1;
             IdOfCurrentGoalPoint = 0;
             customerSpawner.TakeCustomer();
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(2.5f);
             customerSpawner.PutCustomer();
-        }
-
-        private IEnumerator EnterAndExitTestCycle()
-        {
-            // ТЕСТОВЫЙ МЕТОД!!! Отвечающий за цикл входа и выхода
-            EnterBuilding();
-            yield return new WaitForSeconds(11);
-            ExitBuilding();
         }
 
         #endregion

@@ -8,7 +8,7 @@ public class CustomerSpawningManager : MonoBehaviour
 
     private CustomerPoolingManager customerPooling;
 
-    public bool allowCustomerSpawning;
+    private bool allowCustomerSpawning;
 
     private GameObject newCustomer;
     private GameObject oldCustomer;

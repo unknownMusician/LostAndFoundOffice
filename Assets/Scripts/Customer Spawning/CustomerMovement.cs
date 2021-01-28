@@ -98,6 +98,22 @@ public class CustomerMovement : MonoBehaviour
         if (IDOfCurrentGoalPoint != 0)
         {
             moveVector = customerMovingManager.Routes[IDOfCurrentRoute][IDOfCurrentGoalPoint] - customerMovingManager.Routes[IDOfCurrentRoute][IDOfCurrentGoalPoint - 1];
+            NormalizeMoveVector();
+        }
+    }
+    private void NormalizeMoveVector()
+    {
+        // Нормализуем направляющий вектор, чтобы его координаты не были больше 1
+
+        if(Mathf.Abs(moveVector.x) >= Mathf.Abs(moveVector.z))
+        {
+            float normalizer = Mathf.Abs(moveVector.x);
+            moveVector = new Vector3(moveVector.x / normalizer, moveVector.y / normalizer, moveVector.z / normalizer);
+        }
+        else
+        {
+            float normalizer = Mathf.Abs(moveVector.z);
+            moveVector = new Vector3(moveVector.x / normalizer, moveVector.y / normalizer, moveVector.z / normalizer);
         }
     }
 
@@ -116,7 +132,7 @@ public class CustomerMovement : MonoBehaviour
         IDOfCurrentRoute = 1;
         IDOfCurrentGoalPoint = 0;
         customerSpawner.TakeCustomer();
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(10);
         customerSpawner.PutCustomer();
     }
 
@@ -124,7 +140,7 @@ public class CustomerMovement : MonoBehaviour
     {
         // ТЕСТОВЫЙ МЕТОД!!! Отвечающий за цикл входа и выхода
         EnterBuilding();
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(11);
         ExitBuilding();
     }
 

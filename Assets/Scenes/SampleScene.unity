@@ -2613,7 +2613,7 @@ GameObject:
   - component: {fileID: 743819840}
   - component: {fileID: 743819839}
   m_Layer: 0
-  m_Name: New Text
+  m_Name: ClockFace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4566,7 +4566,7 @@ GameObject:
   - component: {fileID: 1238397901}
   - component: {fileID: 1238397902}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6869,7 +6869,7 @@ GameObject:
   - component: {fileID: 1918692185}
   - component: {fileID: 1918692184}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Clock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6888,6 +6888,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Time: {fileID: 743819838}
+  Sprite: {fileID: 1238397900}
 --- !u!136 &1918692185
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -14,6 +14,11 @@ namespace Assets.Scripts
         public List<GameObject> AnswerItems = new List<GameObject>();
         private int MismatchItems { get; set; } = 0;
 
+        protected void Awake()
+        {
+
+        }
+
         protected void Start()
         {
             GetItemsAndImages();
@@ -24,24 +29,45 @@ namespace Assets.Scripts
 
         private void GetItemsAndImages()
         {
-            //var itemPrefabs = Resources.LoadAll("Assets/Resources/Prefabs/Items");
-            //foreach (var o in itemPrefabs)
-            //{
-            //    Items.Add(Generator.GetItemObject((GameObject)o,)); 
-            //}
-            //var imagePrefabs = Resources.LoadAll("Assets/Resources/Prefabs/Items");
-            //foreach (var o in imagePrefabs)
-            //{
-            //    Images.Add(Generator.GetPainting((Texture2D)o,));
-            //}
+            var itemPrefabs = Resources.LoadAll<GameObject>("Prefabs/Items");
+            foreach (var o in itemPrefabs)
+            {
+                Items.Add(Generator.GetItemObject(o));
+            }
+            var imagePrefabs = Resources.LoadAll<Texture2D>("Images/RGB");
+            foreach (var o in imagePrefabs)
+            {
+                Images.Add(Generator.GetPainting(o));
+            }
         }
 
         private void DeliverATruckOfItems()
         {
+            int i = 0;
+            int j = 0;
             foreach (GameObject item in Items)
             {
-                Instantiate(item, new Vector3(0, 5, 0), Quaternion.identity);
+                if (i == 5)
+                {
+                    i = 0;
+                    j++;
+                }
+                Instantiate(item, new Vector3(i++ - 10, 5, j + 7), Quaternion.identity);
             }
+        }
+
+        public Texture2D GetImage()
+        {
+            return Images[AnswerItems.Count];
+        }
+
+        public bool CheckItem(GameObject item)
+        {
+            AnswerItems.Add(item);
+            if (item == Items[AnswerItems.Count - 1])
+                return true;
+            MismatchItems++;
+            return false;
         }
 
         private void Finish()

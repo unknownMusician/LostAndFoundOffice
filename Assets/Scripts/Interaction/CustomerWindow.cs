@@ -26,7 +26,7 @@ namespace Interaction {
         }
 
         public bool TryReceive() {
-            throw new System.NotImplementedException();
+            return customer != null && customerGavePainting;
         }
 
         public void ReceiveOrder(CustomerSpawning.Customer customer) {
@@ -37,6 +37,10 @@ namespace Interaction {
         private void Test() { // todo
             // if Success (Received right and in time)
             // customer.ReceiveAnswer();
+        }
+
+        private void SendItemToManager() {
+            // todo
         }
     }
 }

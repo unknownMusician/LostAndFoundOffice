@@ -2,27 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
-{
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Interacter))]
+public sealed class Player : MonoBehaviour {
+    private Rigidbody rigidBody = null;
+    private Interacter interacter = null;
 
     [SerializeField] private float speed;
 
-    private Rigidbody rigidBody = null;
 
     private Vector3 moveDampVelocity = default;
 
-    private void Awake()
-    {
+    private void Awake() {
         rigidBody = GetComponent<Rigidbody>();
+        interacter = GetComponent<Interacter>();
     }
 
-    private void Update()
-    {
+    private void Update() {
         MoveUpdate();
+        InteractUpdate();
     }
 
-    private void MoveUpdate()
-    {
+    private void MoveUpdate() {
         Vector2 move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * speed;
 
         rigidBody.velocity = Vector3.SmoothDamp(rigidBody.velocity, new Vector3(move.x, rigidBody.velocity.y, move.y), ref moveDampVelocity, 0.1f);
@@ -31,8 +32,7 @@ public class Player : MonoBehaviour
         transform.rotation = Quaternion.FromToRotation(Vector3.forward, new Vector3(rigidBody.velocity.x, 0, rigidBody.velocity.z));
     }
 
-    private Vector2 Round(Vector2 v)
-    {
-        return new Vector2(Mathf.Round(v.x + 0.5f) - 0.5f, Mathf.Round(v.y + 0.5f) - 0.5f);
+    private void InteractUpdate() {
+        if (Input.GetButtonDown("GrabPlace")) { interacter.Interact(); }
     }
 }

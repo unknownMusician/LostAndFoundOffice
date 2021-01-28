@@ -1,65 +1,66 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
-public class Interacter : MonoBehaviour
-{
-    private GrabbableSearcher grabbableSearcher = null;
-    private InteractableSearcher interactableSearcher = null;
+[RequireComponent(typeof(InteractableSearcher))]
+public class Interacter : MonoBehaviour {
+    protected InteractableSearcher interactableSearcher = null;
 
-    private GrabbablePlaceable item = null;
-    private void Awake()
-    {
-        grabbableSearcher = GetComponent<GrabbableSearcher>();
+    [SerializeField] protected Vector3 itemLocalPos = Vector3.forward;
+
+    protected Item holdedItem = null;
+
+    protected void Awake() {
         interactableSearcher = GetComponent<InteractableSearcher>();
     }
-    private void Update()
-    {
-        if (Input.GetButtonDown("GrabPlace"))
-            Interact();
+
+    public void Interact() {
+        var howCanIInteract = HowCanIInteract();
+        var itemToInteract = interactableSearcher.GetItem(howCanIInteract, holdedItem);
+
+        if (itemToInteract == null) {
+            if (holdedItem != null) {
+                itemToInteract = holdedItem;
+            } else { return; }
+        }
+
+        var commonTypes = howCanIInteract.Intersect(itemToInteract.HowToInteract());
+        if (commonTypes.Count() == 0) { return; }
+
+        Interact(itemToInteract, commonTypes.First());
     }
 
-    private void Interact()
-    {
-        var interact = interactableSearcher.Item;
+    protected InteractionType[] HowCanIInteract() {
+        var types = new List<InteractionType>();
 
-        if (item == null)
-        {
-            if (interact != null)
-            {
-                item = interact.Grab();
-            }
-            if (item == null)
-            {
-                item = grabbableSearcher.Item?.Grab();
-            }
-            if (item == null)
-            {
-                return;
-            }
-            var rb = item.GetComponent<Rigidbody>();
-            Destroy(rb);
-            item.transform.SetParent(transform);
-            item.transform.localPosition = Vector3.forward;
-            item.transform.localRotation = Quaternion.identity;
+        // todo: correct order
+        // todo: actually, can't place (can only grab)
+        if (holdedItem != null) { types.Add(InteractionType.Drop); } // todo: make smaller
+        if (holdedItem == null) { types.Add(InteractionType.Grab); }
+        if (holdedItem != null) { types.Add(InteractionType.Receive); }
 
+        return types.ToArray();
+    }
+
+    protected void Interact(IInteractable itemToInteract, InteractionType type) {
+        switch (type) {
+            case InteractionType.Grab:
+                holdedItem = (itemToInteract as IGrabbable).Grab(transform, itemLocalPos);
+                break;
+            case InteractionType.Drop:
+                (itemToInteract as IDroppable).Drop();
+                holdedItem = null;
+                break;
+            case InteractionType.Receive:
+                holdedItem.Drop();
+                (itemToInteract as IReceivable).Receive(holdedItem);
+                holdedItem = null;
+                break;
         }
-        else
-        {
-            if (interact == null)
-            {
-                item.Drop();
-                item.transform.SetParent(null);
-                var rb = item.gameObject.AddComponent<Rigidbody>();
-                rb.useGravity = true;
-                rb.AddForce(9.8f * Vector3.down, ForceMode.Impulse);
-                item = null;
-            }
-            else
-            {
-                if (interact.Place(item))
-                {
-                    item = null;
-                }
-            }
-        }
+    }
+
+    protected void OnDrawGizmos() {
+        Gizmos.color = holdedItem == null ? Color.cyan : Color.yellow;
+        Gizmos.DrawWireSphere(transform.position + transform.rotation * itemLocalPos, 0.5f);
     }
 }

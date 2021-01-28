@@ -44,13 +44,9 @@ namespace Interaction {
             // TODO
         }
 
-        private void Test() { // TODO
-            // if Success (Received right and in time)
-            // customer.ReceiveAnswer();
-        }
-
         private void SendItemToManager(Item item) {
             item.Grab(customer.transform, Vector3.forward);
+            customer.ReceiveAnswer(true);
             // TODO
         }
     }

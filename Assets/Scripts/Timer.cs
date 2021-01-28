@@ -36,4 +36,6 @@ public sealed class Timer : MonoBehaviour {
         Tick(0, startTime);
         TimeOver?.Invoke();
     }
+
+    private void OnDestroy() { timerMaterial.SetFloat("Lerp", 0); }
 }

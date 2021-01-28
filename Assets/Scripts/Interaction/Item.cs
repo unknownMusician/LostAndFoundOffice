@@ -13,6 +13,7 @@ namespace Interaction {
 
         protected void Awake() {
             rigidbody = GetComponent<Rigidbody>();
+            collider = GetComponent<Collider>();
         }
 
         #region IInteractable

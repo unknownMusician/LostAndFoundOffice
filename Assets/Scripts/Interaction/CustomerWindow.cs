@@ -1,4 +1,5 @@
 ﻿using Interaction.Service;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Interaction {
@@ -7,12 +8,17 @@ namespace Interaction {
         public static CustomerWindow Window { get; private set; } = null;
 
         private CustomerSpawning.Customer customer = null;
+        private bool customerGavePainting = false;
 
         private void Awake() => Window = this;
         private void OnDestroy() => Window = null;
 
         public InteractionType[] HowToInteract() {
-            throw new System.NotImplementedException();
+            var types = new List<InteractionType>();
+
+            if (customer != null) { types.Add(customerGavePainting ? InteractionType.Receive : InteractionType.Grab); }
+
+            return types.ToArray();
         }
 
         public void Receive(IGrabbable placeable) {

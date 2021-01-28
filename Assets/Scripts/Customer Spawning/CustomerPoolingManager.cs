@@ -37,7 +37,7 @@ namespace CustomerSpawning
 
             Vector3 customersStartPosition = allCustomersMovingManager.Routes[0][0];
 
-            for(int i = 0; i < allowedAmountOfCustomers; i++)
+            for (int i = 0; i < allowedAmountOfCustomers; i++)
             {
                 GameObject customer = Instantiate(
                     customerPrefab,

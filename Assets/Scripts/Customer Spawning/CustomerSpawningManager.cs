@@ -50,7 +50,7 @@ namespace CustomerSpawning
 
             if (allowCustomerSpawning)
             {
-                if(newCustomer != null) oldCustomer = newCustomer;
+                if (newCustomer != null) oldCustomer = newCustomer;
 
                 newCustomer = customerPooling.Pool.Dequeue();
                 newCustomer.SetActive(true);
@@ -62,9 +62,9 @@ namespace CustomerSpawning
             // Если какой-то клиент уже был заспавлен - пакуем его в переменную oldCustomer
             // Если можно спавнить клиентов - достаем клиента из пула, активируем и настраиваем его
 
-            if(allowCustomerSpawning)
+            if (allowCustomerSpawning)
             {
-                if(newCustomer != null) oldCustomer = newCustomer;
+                if (newCustomer != null) oldCustomer = newCustomer;
 
                 newCustomer = customerPooling.Pool.Dequeue();
                 newCustomer.SetActive(true);
@@ -87,7 +87,7 @@ namespace CustomerSpawning
             yield return new WaitForSeconds(time);
             TakeCustomer();
         }
-    
+
         #endregion
     }
 }

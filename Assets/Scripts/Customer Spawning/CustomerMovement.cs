@@ -9,9 +9,10 @@ namespace CustomerSpawning
 
         private Rigidbody rigidbodyComponent;
         private Transform transformComponent;
+        private Customer customerComponent;
 
         private CustomerSpawningManager customerSpawner;
-        private AllCustomersMovingManager customerMovingManager;
+        private AllCustomersMovingManager allCustomerMovingManager;
 
         private bool allowMoving;
         private int IdOfCurrentRoute;                       // ID текущего маршрута (0 - вход, 1 - выход)
@@ -28,9 +29,10 @@ namespace CustomerSpawning
         {
             rigidbodyComponent = GetComponent<Rigidbody>();
             transformComponent = GetComponent<Transform>();
+            customerComponent = GetComponent<Customer>();
 
             customerSpawner = transformComponent.parent.parent.GetComponent<CustomerSpawningManager>();
-            customerMovingManager = transformComponent.parent.parent.GetComponent<AllCustomersMovingManager>();
+            allCustomerMovingManager = transformComponent.parent.parent.GetComponent<AllCustomersMovingManager>();
         }
         void OnEnable()
         {
@@ -40,7 +42,7 @@ namespace CustomerSpawning
             IdOfCurrentRoute = 0;
             IdOfCurrentGoalPoint = 0;
             moveVector = Vector3.zero;
-            transformComponent.position = customerMovingManager.Routes[IdOfCurrentRoute][IdOfCurrentGoalPoint];
+            transformComponent.position = allCustomerMovingManager.Routes[IdOfCurrentRoute][IdOfCurrentGoalPoint];
             testCycleCoroutine = StartCoroutine(EnterAndExitTestCycle());
         }
         void OnDisable()
@@ -52,17 +54,22 @@ namespace CustomerSpawning
             // Рассчитываем расстояние между текущей позицией клиента и целевой точкой
             // Если разрешено двигаться и клиент не слишком близко к целевой точке - двигаемся с заданной скоростью
             // Если же клиент очень близко или уже на целевой точке, то: если она не крайняя в маршруте - начинаем двигаться к следующей
+            // Если мы на последней точки маршрута ВХОДА - делаем заказ
             // В иных случаях стоим на месте
 
-            Vector3 deltaVector = transformComponent.position - customerMovingManager.Routes[IdOfCurrentRoute][IdOfCurrentGoalPoint];
+            Vector3 deltaVector = transformComponent.position - allCustomerMovingManager.Routes[IdOfCurrentRoute][IdOfCurrentGoalPoint];
             float vectorLength = deltaVector.magnitude;
 
-            if(allowMoving)
+            if (allowMoving)
             {
-                if(vectorLength > 0.25f) rigidbodyComponent.velocity = moveVector * customerMovingManager.speed;
+                if (vectorLength > 0.25f) rigidbodyComponent.velocity = moveVector * allCustomerMovingManager.speed;
                 else
                 {
-                    if(!CheckIfCurrentGoalPointIsLast())
+                    if ((IdOfCurrentRoute == 0) && (IdOfCurrentGoalPoint == allCustomerMovingManager.Routes[0].Length - 1))
+                    {
+                        customerComponent.MakeAnOrder();
+                    }
+                    if (!CheckIfCurrentGoalPointIsLast())
                     {
                         IdOfCurrentGoalPoint += 1;
                         CalculateMoveVector();
@@ -90,15 +97,15 @@ namespace CustomerSpawning
         {
             // Проверяем, является ли текущая целевая точка последней
 
-            return IdOfCurrentGoalPoint + 1 >= customerMovingManager.Routes[IdOfCurrentRoute].Length;
+            return IdOfCurrentGoalPoint + 1 >= allCustomerMovingManager.Routes[IdOfCurrentRoute].Length;
         }
         private void CalculateMoveVector()
         {
             // Рассчитываем направляющий вектор
 
-            if(IdOfCurrentGoalPoint != 0)
+            if (IdOfCurrentGoalPoint != 0)
             {
-                moveVector = customerMovingManager.Routes[IdOfCurrentRoute][IdOfCurrentGoalPoint] - customerMovingManager.Routes[IdOfCurrentRoute][IdOfCurrentGoalPoint - 1];
+                moveVector = allCustomerMovingManager.Routes[IdOfCurrentRoute][IdOfCurrentGoalPoint] - allCustomerMovingManager.Routes[IdOfCurrentRoute][IdOfCurrentGoalPoint - 1];
                 NormalizeMoveVector();
             }
         }
@@ -106,7 +113,7 @@ namespace CustomerSpawning
         {
             // Нормализуем направляющий вектор, чтобы его координаты не были больше 1
 
-            if(Mathf.Abs(moveVector.x) >= Mathf.Abs(moveVector.z))
+            if (Mathf.Abs(moveVector.x) >= Mathf.Abs(moveVector.z))
             {
                 float normalizer = Mathf.Abs(moveVector.x);
                 moveVector = new Vector3(moveVector.x / normalizer, moveVector.y / normalizer, moveVector.z / normalizer);

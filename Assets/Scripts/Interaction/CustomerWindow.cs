@@ -2,7 +2,14 @@
 using UnityEngine;
 
 namespace Interaction {
-    class CustomerWindow : MonoBehaviour, IReceivable {
+    public sealed class CustomerWindow : MonoBehaviour, IReceivable {
+
+        public static CustomerWindow Window { get; private set; } = null;
+
+        private CustomerSpawning.Customer customer = null;
+
+        private void Awake() => Window = this;
+        private void OnDestroy() => Window = null;
 
         public InteractionType[] HowToInteract() {
             throw new System.NotImplementedException();
@@ -14,6 +21,16 @@ namespace Interaction {
 
         public bool TryReceive() {
             throw new System.NotImplementedException();
+        }
+
+        public void ReceiveOrder(CustomerSpawning.Customer customer) {
+            print($"Received order from customer: \"{customer}\"");
+            // todo
+        }
+
+        private void Test() { // todo
+            // if Success (Received right and in time)
+            // customer.ReceiveAnswer();
         }
     }
 }

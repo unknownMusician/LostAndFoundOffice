@@ -30,7 +30,7 @@ namespace Interaction {
 
         private void Test() { // todo
             // if Success (Received right and in time)
-            // todo
+            // customer.ReceiveAnswer();
         }
     }
 }

@@ -30,7 +30,7 @@ namespace CustomerSpawning
         {
             if (!isOrderMade)
             {
-                // Interaction.CustomerWindow.Window.ReceiveOrder(this);
+                Interaction.CustomerWindow.Window.ReceiveOrder(this);
                 Debug.Log("I've made an order!");
                 isOrderMade = true;
             }

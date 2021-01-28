@@ -36,7 +36,7 @@ namespace Interaction {
             state = ItemState.Dropped;
             transform.SetParent(null);
             rigidbody.isKinematic = false;
-            collider.enabled = true;
+            collider.gameObject.layer = LayerMask.NameToLayer("Items");
         }
 
         public bool TryDrop() {
@@ -53,7 +53,7 @@ namespace Interaction {
             transform.localPosition = newLocalPos;
             transform.localRotation = Quaternion.identity;
             rigidbody.isKinematic = true;
-            collider.enabled = false;
+            collider.gameObject.layer = LayerMask.NameToLayer("TransparentItems");
             return this;
         }
 

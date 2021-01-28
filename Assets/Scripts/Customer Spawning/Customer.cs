@@ -20,7 +20,7 @@ namespace CustomerSpawning
                 isOrderMade = true;
             }
         }
-        public void ReceiveAnswer(int iD)
+        public void ReceiveAnswer()
         {
             Debug.Log("received");
         }

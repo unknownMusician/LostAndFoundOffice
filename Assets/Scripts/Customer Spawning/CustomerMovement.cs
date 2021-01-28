@@ -13,8 +13,8 @@ public class CustomerMovement : MonoBehaviour
     private AllCustomersMovingManager customerMovingManager;
 
     private bool allowMoving;
-    private int IDOfCurrentRoute;                       // ID текущего маршрута (0 - вход, 1 - выход)
-    private int IDOfCurrentGoalPoint;                   // ID текущей целевой точки в маршруте
+    private int IdOfCurrentRoute;                       // ID текущего маршрута (0 - вход, 1 - выход)
+    private int IdOfCurrentGoalPoint;                   // ID текущей целевой точки в маршруте
     private Vector3 moveVector;                         // Вектор, направляющий customer'a от одной точки к другой
 
     private Coroutine testCycleCoroutine;               // ТЕСТОВАЯ ПЕРЕМЕННАЯ! Нужна для проверки алгоритма. Хранит в себе корутину цикла спавна клиентов
@@ -36,10 +36,10 @@ public class CustomerMovement : MonoBehaviour
         // Запрещаем двигаться. Устанавливаем текущий маршрут. Задаём начальную позицию
 
         allowMoving = false;
-        IDOfCurrentRoute = 0;
-        IDOfCurrentGoalPoint = 0;
+        IdOfCurrentRoute = 0;
+        IdOfCurrentGoalPoint = 0;
         moveVector = Vector3.zero;
-        transformComponent.position = customerMovingManager.Routes[IDOfCurrentRoute][IDOfCurrentGoalPoint];
+        transformComponent.position = customerMovingManager.Routes[IdOfCurrentRoute][IdOfCurrentGoalPoint];
         testCycleCoroutine = StartCoroutine(EnterAndExitTestCycle());
     }
     void OnDisable()
@@ -51,10 +51,10 @@ public class CustomerMovement : MonoBehaviour
         // Рассчитываем расстояние между текущей позицией клиента и целевой точкой
         // Если разрешено двигаться и клиент не слишком близко к целевой точке - двигаемся с заданной скоростью
         // Если же клиент очень близко или уже на целевой точке, то: если она не крайняя в маршруте - начинаем двигаться к следующей
-        // Во иных случаях стоим на месте
+        // В иных случаях стоим на месте
 
-        Vector3 deltaVectorBetweenCurrentPositionAndGoalPoint = transformComponent.position - customerMovingManager.Routes[IDOfCurrentRoute][IDOfCurrentGoalPoint];
-        float vectorLength = deltaVectorBetweenCurrentPositionAndGoalPoint.magnitude;
+        Vector3 deltaVector = transformComponent.position - customerMovingManager.Routes[IdOfCurrentRoute][IdOfCurrentGoalPoint];
+        float vectorLength = deltaVector.magnitude;
 
         if (allowMoving)
         {
@@ -63,7 +63,7 @@ public class CustomerMovement : MonoBehaviour
             {
                 if(!CheckIfCurrentGoalPointIsLast())
                 {
-                    IDOfCurrentGoalPoint += 1;
+                    IdOfCurrentGoalPoint += 1;
                     CalculateMoveVector();
                 }
                 else rigidbodyComponent.velocity = Vector3.zero;
@@ -89,15 +89,15 @@ public class CustomerMovement : MonoBehaviour
     {
         // Проверяем, является ли текущая целевая точка последней
 
-        return IDOfCurrentGoalPoint + 1 >= customerMovingManager.Routes[IDOfCurrentRoute].Length;
+        return IdOfCurrentGoalPoint + 1 >= customerMovingManager.Routes[IdOfCurrentRoute].Length;
     }
     private void CalculateMoveVector()
     {
         // Рассчитываем направляющий вектор
 
-        if (IDOfCurrentGoalPoint != 0)
+        if (IdOfCurrentGoalPoint != 0)
         {
-            moveVector = customerMovingManager.Routes[IDOfCurrentRoute][IDOfCurrentGoalPoint] - customerMovingManager.Routes[IDOfCurrentRoute][IDOfCurrentGoalPoint - 1];
+            moveVector = customerMovingManager.Routes[IdOfCurrentRoute][IdOfCurrentGoalPoint] - customerMovingManager.Routes[IdOfCurrentRoute][IdOfCurrentGoalPoint - 1];
             NormalizeMoveVector();
         }
     }
@@ -123,14 +123,14 @@ public class CustomerMovement : MonoBehaviour
 
         yield return null;
         allowMoving = true;
-        IDOfCurrentGoalPoint = 0;
+        IdOfCurrentGoalPoint = 0;
     }
     private IEnumerator ExitBuildingCoroutine()
     {
         // Запускаем процесс выхода из здания
 
-        IDOfCurrentRoute = 1;
-        IDOfCurrentGoalPoint = 0;
+        IdOfCurrentRoute = 1;
+        IdOfCurrentGoalPoint = 0;
         customerSpawner.TakeCustomer();
         yield return new WaitForSeconds(10);
         customerSpawner.PutCustomer();

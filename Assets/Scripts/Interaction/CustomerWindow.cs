@@ -68,7 +68,6 @@ namespace Interaction {
                 yield return new WaitForSeconds(1);
                 print(i);
             }
-            customer.ReceiveAnswer(null);
             SendItemToManager(null);
             waitCoroutine = null;
         }

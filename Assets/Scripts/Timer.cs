@@ -5,7 +5,6 @@ using UnityEngine.Events;
 public sealed class Timer : MonoBehaviour {
 
     [SerializeField] private TextMesh Time = default;
-    [SerializeField] private float seconds = default;
     [SerializeField] private Material timerMaterial = default;
 
     public UnityAction TimeOver;
@@ -19,7 +18,7 @@ public sealed class Timer : MonoBehaviour {
         return _timer;
     }
 
-    private void Start() => StartCoroutine(TimerTick(seconds));
+    public void StartTimer(float seconds) => StartCoroutine(TimerTick(seconds));
 
     private void Tick(float currentTime, float startTime) {
         float minutes = Mathf.FloorToInt(currentTime / 60);

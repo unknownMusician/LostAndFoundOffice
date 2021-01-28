@@ -21,7 +21,10 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Floats:
+    - Lerp: -0.00065215223
     - Vector1_4ADE6B4A: 0.25
     m_Colors:
     - Color_5060D563: {r: 0.057249166, g: 1, b: 0, a: 0}
     - Color_613D6EB1: {r: 1, g: 0, b: 0, a: 0}
+    - InnerColor: {r: 1, g: 1, b: 1, a: 0}
+    - OuterColor: {r: 1, g: 0.19339621, b: 0.2320377, a: 0}

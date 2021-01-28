@@ -13,6 +13,8 @@ namespace Interaction {
         private void Awake() => Window = this;
         private void OnDestroy() => Window = null;
 
+        #region IInteractable
+
         public InteractionType[] HowToInteract() {
             var types = new List<InteractionType>();
 
@@ -21,13 +23,19 @@ namespace Interaction {
             return types.ToArray();
         }
 
+        #endregion
+
+        #region IReceivable
+
         public void Receive(IGrabbable placeable) {
-            throw new System.NotImplementedException();
+            SendItemToManager(placeable as Item);
         }
 
         public bool TryReceive() {
             return customer != null && customerGavePainting;
         }
+
+        #endregion
 
         public void ReceiveOrder(CustomerSpawning.Customer customer) {
             print($"Received order from customer: \"{customer}\"");
@@ -39,7 +47,8 @@ namespace Interaction {
             // customer.ReceiveAnswer();
         }
 
-        private void SendItemToManager() {
+        private void SendItemToManager(Item item) {
+            item.Grab(customer.transform, Vector3.forward);
             // todo
         }
     }

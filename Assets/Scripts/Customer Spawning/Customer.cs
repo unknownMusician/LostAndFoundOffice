@@ -13,11 +13,17 @@ namespace CustomerSpawning
         public float ObjectTime { get; set; }       // Время на нахождение объекта
         public Sprite ObjectImage { get; set; }     // Картинка объекта, которую приносит клиент
 
+        private bool isOrderMade;
+
         #endregion
 
         void Awake()
         {
             objectImages = transform.parent.parent.GetComponent<ObjectImagesController>().images;
+        }
+        void OnEnable()
+        {
+            isOrderMade = false;
         }
 
         #region Methods
@@ -39,6 +45,15 @@ namespace CustomerSpawning
             this.ObjectID = objectToFindID;
             this.ObjectTime = timeToSearch;
             this.ObjectImage = image;
+        }
+
+        public void MakeAnOrder()
+        {
+            if (!isOrderMade)
+            {
+                Debug.Log("I've made an order!");
+                isOrderMade = true;
+            }
         }
 
         #endregion

@@ -2,49 +2,52 @@
 using UnityEngine;
 
 
-public class CustomerPoolingManager : MonoBehaviour
+namespace CustomerSpawning
 {
-    #region Properties
-
-    private AllCustomersMovingManager allCustomersMovingManager;
-
-    public Transform customersArrayMenu;
-    public GameObject customerPrefab;
-    public int allowedAmountOfCustomers;
-
-    public Queue<GameObject> Pool { get; set; }
-
-    #endregion
-
-    void Awake()
+    public class CustomerPoolingManager : MonoBehaviour
     {
-        allCustomersMovingManager = GetComponent<AllCustomersMovingManager>();
-        Pool = new Queue<GameObject>();
-    }
-    void Start()
-    {
-        CreatePool();
-    }
+        #region Properties
 
-    private void CreatePool()
-    {
-        // Создаём пул клиентов
-        // Располагаем их на нулевой точке маршрута ВХОДА в здание
-        // Отключаем их
-        // Добавляем в очередь
+        private AllCustomersMovingManager allCustomersMovingManager;
 
-        Vector3 customersStartPosition = allCustomersMovingManager.Routes[0][0];
+        public Transform customersArrayMenu;
+        public GameObject customerPrefab;
+        public int allowedAmountOfCustomers;
 
-        for (int i = 0; i < allowedAmountOfCustomers; i++)
+        public Queue<GameObject> Pool { get; set; }
+
+        #endregion
+
+        void Awake()
         {
-            GameObject customer = Instantiate(
-                customerPrefab,
-                customersStartPosition,
-                Quaternion.identity,
-                customersArrayMenu
-                );
-            customer.SetActive(false);
-            Pool.Enqueue(customer);
+            allCustomersMovingManager = GetComponent<AllCustomersMovingManager>();
+            Pool = new Queue<GameObject>();
+        }
+        void Start()
+        {
+            CreatePool();
+        }
+
+        private void CreatePool()
+        {
+            // Создаём пул клиентов
+            // Располагаем их на нулевой точке маршрута ВХОДА в здание
+            // Отключаем их
+            // Добавляем в очередь
+
+            Vector3 customersStartPosition = allCustomersMovingManager.Routes[0][0];
+
+            for(int i = 0; i < allowedAmountOfCustomers; i++)
+            {
+                GameObject customer = Instantiate(
+                    customerPrefab,
+                    customersStartPosition,
+                    Quaternion.identity,
+                    customersArrayMenu
+                    );
+                customer.SetActive(false);
+                Pool.Enqueue(customer);
+            }
         }
     }
 }

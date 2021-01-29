@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public sealed class Manager : MonoBehaviour {
 
@@ -6,20 +7,22 @@ public sealed class Manager : MonoBehaviour {
 
     private static int currentId = 0;
 
-    private void Start() => Scenario();
+    private void Start() => StartCoroutine(Scenario());
 
     #region Scenario
 
-    private static void Scenario() {
+    private static IEnumerator Scenario() {
         ItemInfos = Generator.GenerateItemInfos(10, 2);
-        DeliverATruckOfItems();
+        yield return DeliverATruckOfItems();
         CustomerSpawning.CustomerSpawningManager.instance.StartSpawning();
+        yield return new WaitForSeconds(1); // TODO: remove
         Timer.instance.TimeOver += Finish;
         Timer.instance.StartTimer(ItemInfos.Length * 15);
     }
 
-    private static void DeliverATruckOfItems() // todo
+    private static IEnumerator DeliverATruckOfItems() // todo
     {
+        yield return new WaitForSeconds(1); // TODO: remove
         int i = 0;
         int j = 0;
         foreach (var info in ItemInfos) {
@@ -29,6 +32,7 @@ public sealed class Manager : MonoBehaviour {
             }
             info.model.transform.position = new Vector3(i++ - 8, 5, j - 2);
         }
+        yield return new WaitForSeconds(1); // TODO: remove
     }
 
     private static void Finish() // todo

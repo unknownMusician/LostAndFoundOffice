@@ -59,7 +59,7 @@ namespace Interaction.Service {
                     holdedItem = null;
                     break;
                 case InteractionType.Decline:
-                    CustomerWindow.Window.DeclineOrder();
+                    (itemToInteract as IDeclinable).DeclineOrder();
                     break;
                     
             }

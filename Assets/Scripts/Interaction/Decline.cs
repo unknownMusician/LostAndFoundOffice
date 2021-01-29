@@ -18,6 +18,6 @@ public class Decline : MonoBehaviour, IDeclinable
 
     public void DeclineOrder()
     {
-        throw new NotImplementedException();
+        CustomerWindow.Window.DeclineOrder();
     }
 }

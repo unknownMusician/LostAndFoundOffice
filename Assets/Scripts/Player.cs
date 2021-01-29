@@ -13,6 +13,7 @@ public sealed class Player : MonoBehaviour {
 
 
     private Vector3 moveDampVelocity = default;
+    private Vector3 rotateDampVelocity = default;
 
     private void Awake() {
         rigidBody = GetComponent<Rigidbody>();
@@ -30,7 +31,9 @@ public sealed class Player : MonoBehaviour {
         rigidBody.velocity = Vector3.SmoothDamp(rigidBody.velocity, new Vector3(move.x, rigidBody.velocity.y, move.y), ref moveDampVelocity, 0.1f);
         rigidBody.angularVelocity = Vector3.zero;
         if (move.magnitude == 0) { return; }
-        transform.rotation = Quaternion.FromToRotation(Vector3.forward, rigidBody.velocity);
+        Vector3 LookVector = Vector3.SmoothDamp(transform.rotation * Vector3.forward, new Vector3(move.x, 0, move.y), ref rotateDampVelocity, 0.1f);
+        transform.rotation = Quaternion.FromToRotation(Vector3.forward, LookVector);
+        
     }
 
     private void InteractUpdate() {

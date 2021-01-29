@@ -12,7 +12,6 @@ public sealed class Manager : MonoBehaviour {
 
     private static void Scenario() {
         ItemInfos = Generator.GenerateItemInfos(10, 2);
-        print(ItemInfos);
         DeliverATruckOfItems();
         Timer.instance.TimeOver += Finish;
         Timer.instance.StartTimer(ItemInfos.Length * 15);

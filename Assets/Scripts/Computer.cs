@@ -32,7 +32,6 @@ public class Computer : MonoBehaviour {
 
     public void SetPainting(Painting painting) {
         computerMaterial.SetTexture("PaintingTexture", painting.rgbTexture);
-        print(painting.rgbTexture);
 
         for (int i = 0; i < painting.colors.Length; i++) {
             computerMaterial.SetColor($"Color{i + 1}", painting.colors[i]);

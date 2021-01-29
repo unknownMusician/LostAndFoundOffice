@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class Generator {
@@ -111,12 +112,23 @@ public static class Generator {
         var obj = Object.Instantiate(models[rawInfo.objectId]);
         var meshRenderer = obj.GetComponent<MeshRenderer>();
         var modifiedMaterials = meshRenderer.materials;
+
+        string[] colors = new[] { "Red", "Green", "Blue" };
+
         for (int i = 0; i < rawInfo.colorIds.Length; i++) {
-            modifiedMaterials[i] = materials[rawInfo.colorIds[i]];
+            int index = GetMaterialIndex(modifiedMaterials, colors[i]);
+            if(index != -1) { modifiedMaterials[index] = materials[i]; }
         }
         meshRenderer.materials = modifiedMaterials;
         return obj;
     }
 
     #endregion
+
+    private static int GetMaterialIndex(Material[] mats, string name) {
+        for (int i =0; i < mats.Length; i++) {
+            if(mats[i].name == name) { return i; }
+        }
+        return -1;
+    }
 }

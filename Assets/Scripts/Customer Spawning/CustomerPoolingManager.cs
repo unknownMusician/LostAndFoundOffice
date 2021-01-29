@@ -23,7 +23,7 @@ namespace CustomerSpawning
             allCustomersMovingManager = GetComponent<AllCustomersMovingManager>();
             Pool = new Queue<GameObject>();
         }
-        void OnEnable()
+        void Start()
         {
             CreatePool();
         }

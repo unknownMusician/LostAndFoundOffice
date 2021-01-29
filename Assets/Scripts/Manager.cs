@@ -30,7 +30,7 @@ public sealed class Manager : MonoBehaviour {
                 i = 0;
                 j++;
             }
-            info.model.transform.position = new Vector3(i++ - 8, 5, j - 2);
+            info.model.transform.position = new Vector3(i++ - 8f, 2, j + 5);
         }
         yield return new WaitForSeconds(1); // TODO: remove
     }

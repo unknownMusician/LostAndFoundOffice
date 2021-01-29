@@ -67,5 +67,11 @@ namespace Interaction {
             SendItemToManager(null);
             waitCoroutine = null;
         }
+
+        public void DeclineOrder()
+        {
+            SendItemToManager(null);
+            waitCoroutine = null;
+        }
     }
 }

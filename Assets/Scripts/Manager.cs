@@ -13,6 +13,7 @@ public sealed class Manager : MonoBehaviour {
     private static void Scenario() {
         ItemInfos = Generator.GenerateItemInfos(10, 2);
         DeliverATruckOfItems();
+        CustomerSpawning.CustomerSpawningManager.instance.StartSpawning();
         Timer.instance.TimeOver += Finish;
         Timer.instance.StartTimer(ItemInfos.Length * 15);
     }
@@ -32,6 +33,7 @@ public sealed class Manager : MonoBehaviour {
 
     private static void Finish() // todo
     {
+        CustomerSpawning.CustomerSpawningManager.instance.StopSpawning();
         if (ComplaintBook.Mismatches == 0 && ComplaintBook.Size == ItemInfos.Length) {
             Win();
         } else {

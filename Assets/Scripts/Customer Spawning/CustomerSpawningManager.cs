@@ -5,6 +5,15 @@ namespace CustomerSpawning
 {
     public class CustomerSpawningManager : MonoBehaviour
     {
+
+        #region Instance
+
+        public static CustomerSpawningManager instance = null;
+        private void Awake() => instance = this;
+        private void OnDestroy() => instance = null;
+
+        #endregion
+
         #region Properties
 
         private CustomerPoolingManager customerPooling;
@@ -16,7 +25,7 @@ namespace CustomerSpawning
 
         #endregion
 
-        void Awake()
+        void OnEnable()
         {
             customerPooling = GetComponent<CustomerPoolingManager>();
             allowCustomerSpawning = false;

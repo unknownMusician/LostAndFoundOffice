@@ -34,8 +34,8 @@ public static class Generator {
     private static Material[] LoadMaterials() {
         var materialsList = new List<Material>();
         string path = "Materials/ItemMaterials/Item{0}Material";
-        string[] diffs = new[] { "Red", "Yellow", "Green" , "Cyan" , "Blue" , "Magenta" , "Black" };
-        foreach(string diff in diffs) {
+        string[] diffs = new[] { "Red", "Yellow", "Green", "Cyan", "Blue", "Magenta", "Black" };
+        foreach (string diff in diffs) {
             materialsList.Add(Resources.Load<Material>(string.Format(path, diff)));
         }
         return materialsList.ToArray();
@@ -43,7 +43,7 @@ public static class Generator {
     private static GameObject[] LoadModels() {
         var modelsList = new List<GameObject>();
         string path = "Prefabs/Items/{0}";
-        string[] diffs = new[] { "Backpack", "Ball", "Book", "Case", "Cube", "Drum", "Laptop", "Phone" , "Ring", "Shield", "Sword", "ToyTrack" };
+        string[] diffs = new[] { "Backpack", "Ball", "Book", "Case", "Cube", "Drum", "Laptop", "Phone", "Ring", "Shield", "Sword", "ToyTrack" };
         foreach (string diff in diffs) {
             modelsList.Add(Resources.Load<GameObject>(string.Format(path, diff)));
         }
@@ -66,7 +66,7 @@ public static class Generator {
     private static ItemRawInfo[] GetRandomRawInfo(int objectsCountNeeded, int objectsCountAll, int colorsCountNeededForEach, int colorsCountAll) {
         var rawInfoList = new List<ItemRawInfo>();
 
-        int[]objectIds = GetRandomIndexes(objectsCountAll, objectsCountNeeded);
+        int[] objectIds = GetRandomIndexes(objectsCountAll, objectsCountNeeded);
 
         for (int i = 0; i < objectsCountNeeded; i++) {
             rawInfoList.Add(new ItemRawInfo(objectIds[i], GetRandomIndexes(colorsCountAll, colorsCountNeededForEach)));
@@ -101,7 +101,7 @@ public static class Generator {
 
     private static Painting GetPainting(ItemRawInfo rawInfo, Texture2D[] rgbs, Color[] colors) {
         var cols = new List<Color>();
-        foreach(int i in rawInfo.colorIds) {
+        foreach (int i in rawInfo.colorIds) {
             cols.Add(colors[i]);
         }
         return new Painting(rgbs[rawInfo.objectId], cols.ToArray());
@@ -113,11 +113,14 @@ public static class Generator {
         var meshRenderer = obj.GetComponent<MeshRenderer>();
         var modifiedMaterials = meshRenderer.materials;
 
-        string[] colors = new[] { "Red", "Green", "Blue" };
+        string[] colors = new[] { "ItemRedMaterial", "ItemGreenMaterial", "ItemBlueMaterial" };
 
         for (int i = 0; i < rawInfo.colorIds.Length; i++) {
             int index = GetMaterialIndex(modifiedMaterials, colors[i]);
-            if(index != -1) { modifiedMaterials[index] = materials[i]; }
+            if (index != -1) {
+                Debug.Log($"{modifiedMaterials[index].name} {i}");
+                modifiedMaterials[index] = materials[rawInfo.colorIds[i]];
+            }
         }
         meshRenderer.materials = modifiedMaterials;
         return obj;
@@ -126,8 +129,8 @@ public static class Generator {
     #endregion
 
     private static int GetMaterialIndex(Material[] mats, string name) {
-        for (int i =0; i < mats.Length; i++) {
-            if(mats[i].name == name) { return i; }
+        for (int i = 0; i < mats.Length; i++) {
+            if (mats[i].name.Contains(name)) { return i; }
         }
         return -1;
     }

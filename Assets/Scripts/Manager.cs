@@ -12,7 +12,7 @@ public sealed class Manager : MonoBehaviour {
     #region Scenario
 
     private static IEnumerator Scenario() {
-        ItemInfos = Generator.GenerateItemInfos(10, 2);
+        ItemInfos = Generator.GenerateItemInfos(10, 3);
         yield return DeliverATruckOfItems();
         CustomerSpawning.CustomerSpawningManager.instance.StartSpawning();
         yield return new WaitForSeconds(1); // TODO: remove
@@ -57,7 +57,7 @@ public sealed class Manager : MonoBehaviour {
     public static bool? ItemGiven(GameObject item) {
         Computer.instance.SetPainting(new Painting(null, new Color[3])); // TODO
 
-        return ComplaintBook.MakeGuess(currentId++, item != null ? GetIdOfItem(item) : -1);
+        return ComplaintBook.MakeGuess(currentId, item != null ? GetIdOfItem(item) : -1);
     }
     public static void NextItem() {
         currentId++;

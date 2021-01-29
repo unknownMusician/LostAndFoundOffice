@@ -2,6 +2,7 @@
     public enum InteractionType {
         Grab,
         Drop,
-        Receive
+        Receive,
+        Decline
     }
 }

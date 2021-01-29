@@ -15,7 +15,7 @@ public static class Generator {
         var rgbs = LoadRgbs();
 
         // Generate
-        var rawInfos = GetRandomRawInfo(count, models.Length, colorsForEach, materials.Length);
+        var rawInfos = GetRandomRawInfos(count, models.Length, colorsForEach, materials.Length);
 
         // Assign
         for (int i = 0; i < count; i++) {
@@ -62,7 +62,26 @@ public static class Generator {
 
     #region Generate
 
-    private static ItemRawInfo[] GetRandomRawInfo(int objectsCountNeeded, int objectsCountAll, int colorsCountNeededForEach, int colorsCountAll) {
+    private static ItemRawInfo[] GetRandomRawInfos(int objectsCountNeeded, int objectsCountAll, int colorsCountNeededForEach, int colorsCountAll) {
+        var rawInfoList = new List<ItemRawInfo>();
+
+        bool @break = false;
+        for (int i = 1; ; i++) {
+            int needMore;
+            if (objectsCountAll * i > objectsCountNeeded) {
+                needMore = objectsCountNeeded - objectsCountAll * (i - 1);
+                @break = true;
+            } else {
+                needMore = objectsCountAll;
+            }
+            rawInfoList.AddRange(GetRandomRawInfos1Iter(needMore, objectsCountAll, colorsCountNeededForEach, colorsCountAll));
+            if(@break) { break;}
+        }
+
+        return rawInfoList.ToArray();
+    }
+
+    private static ItemRawInfo[] GetRandomRawInfos1Iter(int objectsCountNeeded, int objectsCountAll, int colorsCountNeededForEach, int colorsCountAll) {
         var rawInfoList = new List<ItemRawInfo>();
 
         int[] objectIds = GetRandomIndexes(objectsCountAll, objectsCountNeeded);

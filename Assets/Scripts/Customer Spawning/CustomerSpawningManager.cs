@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
+
 
 namespace CustomerSpawning
 {
     public class CustomerSpawningManager : MonoBehaviour
     {
-
         #region Instance
 
         public static CustomerSpawningManager instance = null;
@@ -29,11 +28,6 @@ namespace CustomerSpawning
         {
             customerPooling = GetComponent<CustomerPoolingManager>();
             allowCustomerSpawning = false;
-        }
-        void Start()
-        {
-            allowCustomerSpawning = true;
-            StartCoroutine(TESTTakeCustomerAfterFixedTime(1f));
         }
 
         #region Methods
@@ -71,15 +65,6 @@ namespace CustomerSpawning
 
             customerPooling.Pool.Enqueue(oldCustomer);
             oldCustomer.SetActive(false);
-        }
-
-        private IEnumerator TESTTakeCustomerAfterFixedTime(float time)
-        {
-            // Тестовый метод, который нужен только для проверки
-            // Выполняем функцкию TakeCustomer() после заданного промежутка времени
-
-            yield return new WaitForSeconds(time);
-            TakeCustomer();
         }
 
         #endregion

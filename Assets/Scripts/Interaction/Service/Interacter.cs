@@ -39,6 +39,7 @@ namespace Interaction.Service {
             if (holdedItem != null) { types.Add(InteractionType.Drop); } // TODO: make smaller
             if (holdedItem == null) { types.Add(InteractionType.Grab); }
             if (holdedItem != null) { types.Add(InteractionType.Receive); }
+            types.Add(InteractionType.Decline);
 
             return types.ToArray();
         }
@@ -57,6 +58,10 @@ namespace Interaction.Service {
                     (itemToInteract as IReceivable).Receive(holdedItem);
                     holdedItem = null;
                     break;
+                case InteractionType.Decline:
+                    CustomerWindow.Window.DeclineOrder();
+                    break;
+                    
             }
         }
 

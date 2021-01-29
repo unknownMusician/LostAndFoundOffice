@@ -41,7 +41,8 @@ namespace Interaction {
         public void ReceiveOrder(CustomerSpawning.Customer customer) {
             print($"Received order from customer: \"{customer}\"");
             this.customer = customer;
-            customerGavePainting = true; // TODO
+            Manager.NextItem();
+            customerGavePainting = true;
             waitCoroutine = StartCoroutine(WaitCoroutine(customer));
             // TODO
         }
@@ -49,7 +50,7 @@ namespace Interaction {
         private void SendItemToManager(Item item) {
             if (item != null) {
                 item.Grab(customer.transform, Vector3.forward);
-                customer.ReceiveAnswer(true);
+                customer.ReceiveAnswer(Manager.CheckItem(item.gameObject));
             } else {
                 customer.ReceiveAnswer(null);
             }
@@ -59,7 +60,6 @@ namespace Interaction {
             }
             customer = null;
             // TODO
-
         }
 
         private Coroutine waitCoroutine = null; // todo

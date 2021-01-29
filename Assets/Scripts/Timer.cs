@@ -13,9 +13,11 @@ public sealed class Timer : MonoBehaviour {
 
     private Timer() { }
 
-    public static Timer GetSingleton() {
-        if (_timer == null) { _timer = new Timer(); }
-        return _timer;
+    public static Timer Singleton {
+        get {
+            if (_timer == null) { _timer = new Timer(); }
+            return _timer;
+        }
     }
 
     public void StartTimer(float seconds) => StartCoroutine(TimerTick(seconds));

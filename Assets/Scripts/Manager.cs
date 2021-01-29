@@ -1,102 +1,77 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts
-{
-    public class Manager : MonoBehaviour
+public sealed class Manager : MonoBehaviour {
+
+    #region Instance
+
+    public static Manager instance = null;
+    private void Awake() => instance = this;
+    private void OnDestroy() => instance = null;
+
+    #endregion
+
+    private static ItemInfo[] ItemInfos { get; set; } = null;
+
+    private static int currentId = 0;
+
+    private void Start() => Scenario();
+
+    #region Scenario
+
+    private void Scenario() {
+        GenerateItemInfos();
+        DeliverATruckOfItems();
+        Timer.Singleton.TimeOver += Finish;
+        Timer.Singleton.StartTimer(ItemInfos.Length * 15);
+    }
+
+    private void GenerateItemInfos() => ItemInfos = Generator.GenerateItemInfos(10, 2);
+
+    private void DeliverATruckOfItems() // todo
     {
-        public List<Texture2D> Images = new List<Texture2D>();
-        public List<GameObject> Items = new List<GameObject>();
-        public List<GameObject> AnswerItems = new List<GameObject>();
-        private int MismatchItems { get; set; } = 0;
-
-        protected void Awake()
-        {
-
-        }
-
-        protected void Start()
-        {
-            GetItemsAndImages();
-            DeliverATruckOfItems();
-            Timer.GetSingleton().StartTimer(Items.Count * 15);
-            Timer.GetSingleton().TimeOver += Finish;
-        }
-
-        private void GetItemsAndImages()
-        {
-            var itemPrefabs = Resources.LoadAll<GameObject>("Prefabs/Items");
-            foreach (var o in itemPrefabs)
-            {
-                Items.Add(Generator.GetItemObject(o));
+        int i = 0;
+        int j = 0;
+        foreach (var info in ItemInfos) {
+            if (i == 5) {
+                i = 0;
+                j++;
             }
-            var imagePrefabs = Resources.LoadAll<Texture2D>("Images/RGB");
-            foreach (var o in imagePrefabs)
-            {
-                Images.Add(Generator.GetPainting(o));
-            }
+            Instantiate(info.model, new Vector3(i++ - 10, 5, j + 7), Quaternion.identity);
         }
+    }
 
-        private void DeliverATruckOfItems()
-        {
-            int i = 0;
-            int j = 0;
-            foreach (GameObject item in Items)
-            {
-                if (i == 5)
-                {
-                    i = 0;
-                    j++;
-                }
-                Instantiate(item, new Vector3(i++ - 10, 5, j + 7), Quaternion.identity);
-            }
+    private void Finish() // todo
+    {
+        if (ComplaintBook.Mismatches == 0 && ComplaintBook.Size == ItemInfos.Length) {
+            Win();
+        } else {
+            Loser();
         }
+        ShowCorrectAnswer();
+    }
 
-        public Texture2D GetImage()
-        {
-            return Images[AnswerItems.Count];
+    private void Win() { } // todo
+
+    private void Loser() { } // todo
+
+    private void ShowCorrectAnswer() { } // todo
+
+    #endregion
+
+    public static Texture2D GetImage() // TODO: What for?!
+    {
+        // TODO: return current image, but ↑↑↑
+        throw new System.NotImplementedException();
+    }
+
+    public static bool CheckItem(GameObject item) => ComplaintBook.MakeGuess(currentId++, GetIdOfItem(item));
+    public static void NextItem() => currentId++;
+
+    private static int GetIdOfItem(GameObject item) {
+        for(int i = 0; i < ItemInfos.Length;i++) {
+            if(ItemInfos[i].model == item) { return i; }
         }
-
-        public bool CheckItem(GameObject item)
-        {
-            AnswerItems.Add(item);
-            if (item == Items[AnswerItems.Count - 1])
-                return true;
-            MismatchItems++;
-            return false;
-        }
-
-        private void Finish()
-        {
-            if (MismatchItems == 0 && AnswerItems.Count == Items.Count)
-            {
-                Win();
-            }
-            else
-            {
-                Loser();
-            }
-            ShowCorrectAnswer();
-
-        }
-
-        private void Win()
-        {
-
-        }
-
-        private void Loser()
-        {
-
-        }
-
-        private void ShowCorrectAnswer()
-        {
-
-        }
+        throw new System.ArgumentException("WTF, you trying to find an object not from those, that spawned???!!?!?!!"); // TODO
     }
 }

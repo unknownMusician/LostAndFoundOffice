@@ -27,7 +27,15 @@ Material:
     m_Floats:
     - IsOn: 1
     - Vector1_13CC0196: 1
+    - Vector1_3374EAB5: 0.2
+    - Vector1_523C47C4: 0.5
+    - Vector1_5B4359AB: 0.04
+    - Vector1_A848D799: 4.2
+    - Vector1_B4FD56A8: 3
+    - Vector1_CBDB9751: 14.61
     m_Colors:
     - Color1: {r: 0, g: 1, b: 1, a: 1}
     - Color2: {r: 1, g: 0, b: 1, a: 1}
     - Color3: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    - Color_A64E44F5: {r: 0.5471698, g: 0.5471698, b: 0.5471698, a: 0}
+    - Vector2_CE00FFE6: {r: -0.11, g: 0.46, b: 0, a: 0}

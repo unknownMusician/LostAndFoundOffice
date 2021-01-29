@@ -1,15 +1,6 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public sealed class Manager : MonoBehaviour {
-
-    #region Instance
-
-    public static Manager instance = null;
-    private void Awake() => instance = this;
-    private void OnDestroy() => instance = null;
-
-    #endregion
 
     private static ItemInfo[] ItemInfos { get; set; } = null;
 
@@ -19,16 +10,15 @@ public sealed class Manager : MonoBehaviour {
 
     #region Scenario
 
-    private void Scenario() {
-        GenerateItemInfos();
+    private static void Scenario() {
+        ItemInfos = Generator.GenerateItemInfos(10, 2);
+        print(ItemInfos);
         DeliverATruckOfItems();
-        Timer.Singleton.TimeOver += Finish;
-        Timer.Singleton.StartTimer(ItemInfos.Length * 15);
+        Timer.instance.TimeOver += Finish;
+        Timer.instance.StartTimer(ItemInfos.Length * 15);
     }
 
-    private void GenerateItemInfos() => ItemInfos = Generator.GenerateItemInfos(10, 2);
-
-    private void DeliverATruckOfItems() // todo
+    private static void DeliverATruckOfItems() // todo
     {
         int i = 0;
         int j = 0;
@@ -37,11 +27,11 @@ public sealed class Manager : MonoBehaviour {
                 i = 0;
                 j++;
             }
-            Instantiate(info.model, new Vector3(i++ - 10, 5, j + 7), Quaternion.identity);
+            info.model.transform.position = new Vector3(i++ - 10, 5, j + 7);
         }
     }
 
-    private void Finish() // todo
+    private static void Finish() // todo
     {
         if (ComplaintBook.Mismatches == 0 && ComplaintBook.Size == ItemInfos.Length) {
             Win();
@@ -51,26 +41,31 @@ public sealed class Manager : MonoBehaviour {
         ShowCorrectAnswer();
     }
 
-    private void Win() { } // todo
+    private static void Win() { print("YOU WON, my kickass-MAN!!!"); } // todo
 
-    private void Loser() { } // todo
+    private static void Loser() { print("you lost, you piece of shit"); } // todo
 
-    private void ShowCorrectAnswer() { } // todo
+    private static void ShowCorrectAnswer() { } // todo
 
     #endregion
 
-    public static Texture2D GetImage() // TODO: What for?!
-    {
-        // TODO: return current image, but ↑↑↑
-        throw new System.NotImplementedException();
+    public static bool? ItemGiven(GameObject item) {
+        Computer.instance.SetPainting(new Painting(null, new Color[3])); // TODO
+
+        return ComplaintBook.MakeGuess(currentId++, item != null ? GetIdOfItem(item) : -1);
+    }
+    public static void NextItem() {
+        currentId++;
+        if (currentId >= ItemInfos.Length) {
+            Finish();
+            return;
+        }
+        Computer.instance.SetPainting(ItemInfos[currentId].painting);
     }
 
-    public static bool CheckItem(GameObject item) => ComplaintBook.MakeGuess(currentId++, GetIdOfItem(item));
-    public static void NextItem() => currentId++;
-
     private static int GetIdOfItem(GameObject item) {
-        for(int i = 0; i < ItemInfos.Length;i++) {
-            if(ItemInfos[i].model == item) { return i; }
+        for (int i = 0; i < ItemInfos.Length; i++) {
+            if (ItemInfos[i].model == item) { return i; }
         }
         throw new System.ArgumentException("WTF, you trying to find an object not from those, that spawned???!!?!?!!"); // TODO
     }

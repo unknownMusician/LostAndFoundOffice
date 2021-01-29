@@ -13,11 +13,12 @@ public static class ComplaintBook {
         Mismatches = 0;
     }
 
-    public static bool MakeGuess(int rightId, int givenId) {
+    public static bool? MakeGuess(int rightId, int givenId) {
+
         answers.Add(new Answer(rightId, givenId));
         if (rightId != givenId) {
             Mismatches++;
-            return false;
+            return givenId == -1 ? (bool?)null : false;
         }
         return true;
     }

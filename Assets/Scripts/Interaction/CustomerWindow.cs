@@ -48,12 +48,8 @@ namespace Interaction {
         }
 
         private void SendItemToManager(Item item) {
-            if (item != null) {
-                item.Grab(customer.transform, Vector3.forward);
-                customer.ReceiveAnswer(Manager.CheckItem(item.gameObject));
-            } else {
-                customer.ReceiveAnswer(null);
-            }
+            if (item != null) { item.Grab(customer.transform, Vector3.forward); }
+            customer.ReceiveAnswer(Manager.ItemGiven(item?.gameObject));
             if (waitCoroutine != null) {
                 StopCoroutine(waitCoroutine);
                 waitCoroutine = null;
@@ -64,7 +60,7 @@ namespace Interaction {
 
         private Coroutine waitCoroutine = null; // todo
         private IEnumerator WaitCoroutine(CustomerSpawning.Customer customer) { // todo
-            for (int i = 5; i > 0; i--) {
+            for (int i = 10; i > 0; i--) {
                 yield return new WaitForSeconds(1);
                 print(i);
             }

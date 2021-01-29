@@ -4,28 +4,25 @@ using UnityEngine.Events;
 
 public sealed class Timer : MonoBehaviour {
 
-    [SerializeField] private TextMesh Time = default;
+    #region Instance
+
+    public static Timer instance = null;
+    private void Awake() => instance = this;
+    private void OnDestroy() => instance = null;
+
+    #endregion
+
+    [SerializeField] private TextMesh timeTextMesh = default;
     [SerializeField] private Material timerMaterial = default;
 
     public UnityAction TimeOver;
-
-    private static Timer _timer = null;
-
-    private Timer() { }
-
-    public static Timer Singleton {
-        get {
-            if (_timer == null) { _timer = new Timer(); }
-            return _timer;
-        }
-    }
 
     public void StartTimer(float seconds) => StartCoroutine(TimerTick(seconds));
 
     private void Tick(float currentTime, float startTime) {
         float minutes = Mathf.FloorToInt(currentTime / 60);
         float seconds = Mathf.FloorToInt(currentTime % 60);
-        Time.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        timeTextMesh.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         timerMaterial.SetFloat("Lerp", currentTime / startTime);
     }
 
@@ -38,5 +35,5 @@ public sealed class Timer : MonoBehaviour {
         TimeOver?.Invoke();
     }
 
-    private void OnDestroy() { timerMaterial.SetFloat("Lerp", 0); }
+    private void OnDisable() { timerMaterial.SetFloat("Lerp", 0); }
 }

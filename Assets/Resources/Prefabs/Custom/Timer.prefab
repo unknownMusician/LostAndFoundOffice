@@ -187,6 +187,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b3493383a78a348b873064ca3fb820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Time: {fileID: 3996545398592708347}
-  seconds: 10
+  timeTextMesh: {fileID: 3996545398592708347}
   timerMaterial: {fileID: 2100000, guid: e87bc5b10bf51f04283a53d401f63430, type: 2}

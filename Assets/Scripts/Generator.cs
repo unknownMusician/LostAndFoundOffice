@@ -106,7 +106,7 @@ public static class Generator {
 
     private static GameObject GetModel(ItemRawInfo rawInfo, GameObject[] models, Material[] materials) {
         // TODO: check if material changes (it actually should)
-        var obj = models[rawInfo.objectId];
+        var obj = Object.Instantiate(models[rawInfo.objectId]);
         var meshRenderer = obj.GetComponent<MeshRenderer>();
         var modifiedMaterials = meshRenderer.materials;
         for (int i = 0; i < rawInfo.colorIds.Length; i++) {

@@ -12,7 +12,7 @@ public sealed class Manager : MonoBehaviour {
     #region Scenario
 
     private static IEnumerator Scenario() {
-        ItemInfos = Generator.GenerateItemInfos(10, 3);
+        ItemInfos = Generator.GenerateItemInfos(100, 3);
         yield return DeliverATruckOfItems();
         CustomerSpawning.CustomerSpawningManager.instance.StartSpawning();
         yield return new WaitForSeconds(1); // TODO: remove

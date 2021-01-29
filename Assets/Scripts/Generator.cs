@@ -15,7 +15,7 @@ public static class Generator {
         var rgbs = LoadRgbs();
 
         // Generate
-        var rawInfos = GetRandomRawInfos1Iter(count, models.Length, colorsForEach, materials.Length);
+        var rawInfos = GetRandomRawInfos(count, models.Length, colorsForEach, materials.Length);
 
         // Assign
         for (int i = 0; i < count; i++) {

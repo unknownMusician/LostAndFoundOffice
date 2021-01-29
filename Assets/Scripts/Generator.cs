@@ -65,8 +65,10 @@ public static class Generator {
     private static ItemRawInfo[] GetRandomRawInfo(int objectsCountNeeded, int objectsCountAll, int colorsCountNeededForEach, int colorsCountAll) {
         var rawInfoList = new List<ItemRawInfo>();
 
+        int[]objectIds = GetRandomIndexes(objectsCountAll, objectsCountNeeded);
+
         for (int i = 0; i < objectsCountNeeded; i++) {
-            rawInfoList.Add(new ItemRawInfo(GetRandomIndexes(objectsCountAll, 1)[0], GetRandomIndexes(colorsCountAll, colorsCountNeededForEach)));
+            rawInfoList.Add(new ItemRawInfo(objectIds[i], GetRandomIndexes(colorsCountAll, colorsCountNeededForEach)));
         }
 
         return rawInfoList.ToArray();

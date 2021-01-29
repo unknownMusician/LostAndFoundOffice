@@ -1,4 +1,5 @@
 ﻿using Interaction.Service;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,7 +36,12 @@ namespace Interaction {
         public void Drop() {
             state = ItemState.Dropped;
             transform.SetParent(null);
-            rigidbody.isKinematic = false;
+            // rigidbody.isKinematic = false;
+            var joint = GetComponent<FixedJoint>();
+            if (joint != null) {
+                joint.connectedBody = null;
+                StartCoroutine(DestroyJointIfNoConnectedBody(joint));
+            }
             collider.gameObject.layer = LayerMask.NameToLayer("Items");
         }
 
@@ -52,7 +58,15 @@ namespace Interaction {
             transform.SetParent(whoInteracted);
             transform.localPosition = newLocalPos;
             transform.localRotation = Quaternion.identity;
-            rigidbody.isKinematic = true;
+            // rigidbody.isKinematic = true;
+            FixedJoint joint;
+            if (GetComponent<FixedJoint>() == null) {
+                joint = gameObject.AddComponent<FixedJoint>();
+            } else {
+                joint = GetComponent<FixedJoint>();
+            }
+            joint.connectedBody = whoInteracted.GetComponent<Rigidbody>();
+
             collider.gameObject.layer = LayerMask.NameToLayer("TransparentItems");
             return this;
         }
@@ -62,6 +76,11 @@ namespace Interaction {
         }
 
         #endregion
+
+        protected IEnumerator DestroyJointIfNoConnectedBody(FixedJoint joint) {
+            yield return null;
+            if(joint.connectedBody == null) { Destroy(joint); }
+        }
 
         protected enum ItemState {
             Dropped,

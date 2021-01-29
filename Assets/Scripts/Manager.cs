@@ -12,7 +12,6 @@ public sealed class Manager : MonoBehaviour {
 
     private static void Scenario() {
         ItemInfos = Generator.GenerateItemInfos(10, 2);
-        print(ItemInfos);
         DeliverATruckOfItems();
         Timer.instance.TimeOver += Finish;
         Timer.instance.StartTimer(ItemInfos.Length * 15);
@@ -27,7 +26,7 @@ public sealed class Manager : MonoBehaviour {
                 i = 0;
                 j++;
             }
-            info.model.transform.position = new Vector3(i++ - 10, 5, j + 7);
+            info.model.transform.position = new Vector3(i++ - 8, 5, j - 2);
         }
     }
 

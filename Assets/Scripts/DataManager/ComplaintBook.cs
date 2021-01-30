@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Scripts;
 
 namespace DataManager {
     public static class ComplaintBook {

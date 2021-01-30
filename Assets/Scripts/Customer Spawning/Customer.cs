@@ -7,6 +7,7 @@ namespace CustomerSpawning
     {
         private Rigidbody rigidbodyComponent;
         private CustomerMovement movementComponent;
+        private Animator animator;
 
         public bool AllowRotation { get; set; }
 
@@ -14,6 +15,7 @@ namespace CustomerSpawning
         {
             rigidbodyComponent = GetComponent<Rigidbody>();
             movementComponent = GetComponent<CustomerMovement>();
+            animator = GetComponentInChildren<Animator>();
 
             rigidbodyComponent.freezeRotation = true;
         }
@@ -23,11 +25,13 @@ namespace CustomerSpawning
         }
         void FixedUpdate()
         {
+        animator.SetFloat("currentSpeed", rigidbodyComponent.velocity.magnitude);
             if ((rigidbodyComponent.velocity != Vector3.zero) && (AllowRotation))
             {
                 float angle = Vector2.SignedAngle(Service.Project(rigidbodyComponent.velocity), Vector2.up);
                 transform.rotation = Quaternion.Euler(0, angle, 0);            
             }
+
         }
 
         public void MakeAnOrder()

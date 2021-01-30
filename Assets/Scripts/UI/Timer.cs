@@ -7,16 +7,22 @@ namespace UI {
 
         #region Instance
 
-        public static Timer instance = null;
-        private void Awake() => instance = this;
-        private void OnDestroy() => instance = null;
+        public static Timer instance { get; set; } = null;
+        private void Awake() {
+            instance = this;
+            DataManager.Manager.Fin += () => timeTextMesh.text = "";
+        }
+        private void OnDestroy() {
+            instance = null;
+            timerMaterial.SetFloat("Lerp", 0);
+        }
 
         #endregion
 
         [SerializeField] private TextMesh timeTextMesh = default;
         [SerializeField] private Material timerMaterial = default;
 
-        public UnityAction TimeOver;
+        public static UnityAction TimeOver;
 
         public void StartTimer(float seconds) => StartCoroutine(TimerTick(seconds));
 
@@ -34,9 +40,6 @@ namespace UI {
             }
             Tick(0, startTime);
             TimeOver?.Invoke();
-            timeTextMesh.text = "";
         }
-
-        private void OnDisable() { timerMaterial.SetFloat("Lerp", 0); }
     }
 }

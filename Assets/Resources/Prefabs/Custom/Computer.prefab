@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   computerMaterial: {fileID: 2100000, guid: a1502c8d8d2eb194094eee347c78f35d, type: 2}
+  finalMaterial: {fileID: 2100000, guid: 29743683d4c205a4fa6950ca187d8ffc, type: 2}
 --- !u!1 &7152783196888155116
 GameObject:
   m_ObjectHideFlags: 0

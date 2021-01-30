@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customersArrayMenu: {fileID: 3004833231735596174}
-  customerPrefab: {fileID: 7816233233346525594, guid: 984af3f9e7b618945a5b32d6ff928413,
+  customerPrefab: {fileID: 7614181344438056022, guid: c5c0ed4bcaaef5242a4ac2b5754d2f72,
     type: 3}
   allowedAmountOfCustomers: 2
 --- !u!114 &3004833230828402251

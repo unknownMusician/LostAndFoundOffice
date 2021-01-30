@@ -28,7 +28,7 @@ public sealed class Player : MonoBehaviour {
 
     private void MoveUpdate() {
         Vector2 move = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized * speed;
-        animator.SetFloat("currentSpeed",move.magnitude);
+        animator.SetFloat("currentSpeed", move.magnitude);
         rigidBody.velocity = Vector3.SmoothDamp(rigidBody.velocity, new Vector3(move.x, rigidBody.velocity.y, move.y), ref moveDampVelocity, 0.1f);
         rigidBody.angularVelocity = Vector3.zero;
         if (move.magnitude == 0) { return; }

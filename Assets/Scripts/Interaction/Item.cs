@@ -84,7 +84,7 @@ namespace Interaction {
 
         public void EndItem() {
             if(GetComponent<FixedJoint>() != null) { Destroy(GetComponent<FixedJoint>()); }
-            if(GetComponent<Rigidbody>() != null) { Destroy(GetComponent<Rigidbody>()); }
+            if(GetComponent<Rigidbody>() != null) { GetComponent<Rigidbody>().isKinematic = true; }
             transform.SetParent(null);
         }
 

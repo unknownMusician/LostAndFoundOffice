@@ -33,4 +33,4 @@ Material:
     - Vector1_7AAAFE76: 5
     m_Colors:
     - Vector2_772C2457: {r: 0, g: 0, b: 0, a: 0}
-    - Vector2_BFE1379E: {r: 20, g: 50, b: 0, a: 0}
+    - Vector2_BFE1379E: {r: 0.25, g: 0.5, b: 0, a: 0}

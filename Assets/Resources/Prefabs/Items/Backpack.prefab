@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5873200118718805794}
   - component: {fileID: 1247980886163474252}
   - component: {fileID: 2449234939620810761}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Backpack
   m_TagString: Untagged
   m_Icon: {fileID: 0}

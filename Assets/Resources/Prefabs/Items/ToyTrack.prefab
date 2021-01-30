@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5844575398842942275}
   - component: {fileID: 4259634272912960540}
   - component: {fileID: 5760507738819601058}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ToyTrack
   m_TagString: Untagged
   m_Icon: {fileID: 0}

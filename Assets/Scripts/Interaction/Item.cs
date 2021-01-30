@@ -82,6 +82,12 @@ namespace Interaction {
             if(joint.connectedBody == null) { Destroy(joint); }
         }
 
+        public void EndItem() {
+            if(GetComponent<FixedJoint>()) { Destroy(GetComponent<FixedJoint>()); }
+            if(GetComponent<Rigidbody>()) { Destroy(GetComponent<Rigidbody>()); }
+            transform.SetParent(null);
+        }
+
         protected enum ItemState {
             Dropped,
             Holded

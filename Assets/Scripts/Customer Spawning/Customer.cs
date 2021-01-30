@@ -23,7 +23,7 @@ namespace CustomerSpawning
         }
         void OnDisable()
         {
-            if (transform.childCount == 3) Destroy(transform.GetChild(2).gameObject);
+            if (transform.childCount == 3) transform.GetChild(2).GetComponent<Interaction.Item>().EndItem();
         }
         void FixedUpdate()
         {

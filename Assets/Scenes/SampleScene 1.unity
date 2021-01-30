@@ -1659,7 +1659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4be1b4bb7386a874c95886249650d9dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 20
 --- !u!136 &330098301
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3266,7 +3266,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 0787dbfbdf67ef447ba4713a21e1bb92,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0787dbfbdf67ef447ba4713a21e1bb92,
         type: 3}

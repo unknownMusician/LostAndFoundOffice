@@ -8,7 +8,7 @@ namespace CustomerSpawning
         private Rigidbody rigidbodyComponent;
         private CustomerMovement movementComponent;
 
-        private bool isOrderMade;
+        public bool AllowRotation { get; set; }
 
         void Awake()
         {
@@ -19,7 +19,7 @@ namespace CustomerSpawning
         }
         void OnEnable()
         {
-            isOrderMade = false;
+            AllowRotation = true;
         }
         void OnDisable()
         {
@@ -27,19 +27,16 @@ namespace CustomerSpawning
         }
         void FixedUpdate()
         {
-            if (rigidbodyComponent.velocity != Vector3.zero)
+            if ((rigidbodyComponent.velocity != Vector3.zero) && (AllowRotation))
             {
-                transform.rotation = Quaternion.FromToRotation(Vector3.forward, rigidbodyComponent.velocity);
+                float angle = Vector2.SignedAngle(Service.Project(rigidbodyComponent.velocity), Vector2.up);
+                transform.rotation = Quaternion.Euler(0, angle, 0);            
             }
         }
 
         public void MakeAnOrder()
         {
-            if (!isOrderMade)
-            {
-                Interaction.CustomerWindow.Window.ReceiveOrder(this);
-                isOrderMade = true;
-            }
+            Interaction.CustomerWindow.Window.ReceiveOrder(this);
         }
         public void ReceiveAnswer(bool? answer)
         {

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6297084650379069174}
   - component: {fileID: 7107100815782353317}
   - component: {fileID: 4168257702160211696}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Phone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -17693,7 +17693,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 51.15, y: 0, z: 0}
 --- !u!114 &1687258586
 MonoBehaviour:
@@ -18059,6 +18059,11 @@ PrefabInstance:
         type: 3}
       propertyPath: enterRoute.Array.data[2].z
       value: 10.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3004833230828402253, guid: 914c791fb8582e649aec694e0595542e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4514076722571230817, guid: 914c791fb8582e649aec694e0595542e,
         type: 3}
@@ -22967,15 +22972,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Table
       objectReference: {fileID: 0}
+    - target: {fileID: 4676793034068719741, guid: 3f06855ae154045438f2e48a9ef1cae3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 5524020116927051359, guid: 3f06855ae154045438f2e48a9ef1cae3,
         type: 3}
       propertyPath: m_Size.z
-      value: 0.004
+      value: 0.008
       objectReference: {fileID: 0}
     - target: {fileID: 5524020116927051359, guid: 3f06855ae154045438f2e48a9ef1cae3,
         type: 3}
       propertyPath: m_Center.z
-      value: -0.00501
+      value: -0.00301
+      objectReference: {fileID: 0}
+    - target: {fileID: 6939897222273865778, guid: 3f06855ae154045438f2e48a9ef1cae3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f06855ae154045438f2e48a9ef1cae3, type: 3}

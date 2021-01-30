@@ -9,7 +9,16 @@ namespace Interaction.Service {
 
         [SerializeField] protected Vector3 itemLocalPos = Vector3.forward;
 
-        protected Item holdedItem = null;
+        protected Item _holdedItem = null;
+        protected Item HoldedItem {
+            get => _holdedItem;
+            set {
+                _holdedItem = value;
+                var hands = transform.Find("Model").Find("Hands");
+                hands.localPosition = _holdedItem == null ? Vector3.zero : Vector3.forward;
+                hands.localScale = _holdedItem == null ? Vector3.one * 100 : Vector3.one * 80;
+            }
+        }
 
         protected void Awake() {
             interactableSearcher = GetComponent<InteractableSearcher>();
@@ -17,11 +26,11 @@ namespace Interaction.Service {
 
         public void Interact() {
             var howCanIInteract = HowCanIInteract();
-            var itemToInteract = interactableSearcher.GetItem(howCanIInteract, holdedItem);
+            var itemToInteract = interactableSearcher.GetItem(howCanIInteract, HoldedItem);
 
             if (itemToInteract == null) {
-                if (holdedItem != null) {
-                    itemToInteract = holdedItem;
+                if (HoldedItem != null) {
+                    itemToInteract = HoldedItem;
                 } else { return; }
             }
 
@@ -36,10 +45,10 @@ namespace Interaction.Service {
 
             // TODO: correct order
             // TODO: actually, can't place (can only grab)
-            if (holdedItem != null) { types.Add(InteractionType.Drop); } // TODO: make smaller
-            if (holdedItem == null) { types.Add(InteractionType.Grab); }
-            if (holdedItem != null) { types.Add(InteractionType.Receive); }
-            if (holdedItem == null) { types.Add(InteractionType.Message); }
+            if (HoldedItem != null) { types.Add(InteractionType.Drop); } // TODO: make smaller
+            if (HoldedItem == null) { types.Add(InteractionType.Grab); }
+            if (HoldedItem != null) { types.Add(InteractionType.Receive); }
+            if (HoldedItem == null) { types.Add(InteractionType.Message); }
 
             return types.ToArray();
         }
@@ -47,26 +56,26 @@ namespace Interaction.Service {
         protected void Interact(IInteractable itemToInteract, InteractionType type) {
             switch (type) {
                 case InteractionType.Grab:
-                    holdedItem = (itemToInteract as IGrabbable).Grab(transform, itemLocalPos);
+                    HoldedItem = (itemToInteract as IGrabbable).Grab(transform, itemLocalPos);
                     break;
                 case InteractionType.Drop:
                     (itemToInteract as IDroppable).Drop();
-                    holdedItem = null;
+                    HoldedItem = null;
                     break;
                 case InteractionType.Receive:
-                    holdedItem.Drop();
-                    (itemToInteract as IReceivable).Receive(holdedItem);
-                    holdedItem = null;
+                    HoldedItem.Drop();
+                    (itemToInteract as IReceivable).Receive(HoldedItem);
+                    HoldedItem = null;
                     break;
                 case InteractionType.Message:
                     (itemToInteract as IMessageable).Message();
                     break;
-                    
+
             }
         }
 
         protected void OnDrawGizmos() {
-            Gizmos.color = holdedItem == null ? Color.cyan : Color.yellow;
+            Gizmos.color = HoldedItem == null ? Color.cyan : Color.yellow;
             Gizmos.DrawWireSphere(transform.position + transform.rotation * itemLocalPos, 0.5f);
         }
     }

@@ -37,7 +37,7 @@ namespace DataManager
 
         private static IEnumerator DeliverATruckOfItems() // todo
         {
-            yield return new WaitForSeconds(1); // TODO: remove
+            yield return new WaitForSeconds(0.85f); // TODO: remove
             int i = 0;
             int j = 0;
             foreach (var info in ItemInfos)

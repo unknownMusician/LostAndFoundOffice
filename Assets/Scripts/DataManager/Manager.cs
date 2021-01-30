@@ -1,15 +1,18 @@
 ﻿using System.Collections;
+using Assets.Scripts;
 using UI;
 using UnityEngine;
 
-namespace DataManager {
-    public sealed class Manager : MonoBehaviour {
+namespace DataManager
+{
+    public sealed class Manager : MonoBehaviour
+    {
 
         [SerializeField] private int itemsSpawnCount;
         [SerializeField] private int thiefSpawnCount;
         [SerializeField] private int extraModelsSpawnCount;
 
-        private static ItemInfo[] ItemInfos { get; set; } = null;
+        public static ItemInfo[] ItemInfos { get; set; } = null;
 
         private static int currentId = -1;
 
@@ -17,8 +20,10 @@ namespace DataManager {
 
         #region Scenario
 
-        private static IEnumerator Scenario(int itemsSpawnCount, int thiefSpawnCount, int extraModelsSpawnCount) {
+        private static IEnumerator Scenario(int itemsSpawnCount, int thiefSpawnCount, int extraModelsSpawnCount)
+        {
             ItemInfos = Generator.GenerateItemInfos(itemsSpawnCount, 3, thiefSpawnCount, extraModelsSpawnCount);
+
             yield return DeliverATruckOfItems();
             CustomerSpawning.CustomerSpawningManager.instance.StartSpawning();
             yield return new WaitForSeconds(1); // TODO: remove
@@ -31,12 +36,18 @@ namespace DataManager {
             yield return new WaitForSeconds(1); // TODO: remove
             int i = 0;
             int j = 0;
-            foreach (var info in ItemInfos) {
-                if (i == 5) {
+            foreach (var info in ItemInfos)
+            {
+                if (i == 5)
+                {
                     i = 0;
                     j++;
                 }
-                if (info.model != null) { info.model.transform.position = new Vector3(i++ - 8f, 2, j + 5); }
+
+                if (info.model != null)
+                {
+                    info.model.transform.position = new Vector3(i++ - 8f, 2, j + 5);
+                }
             }
             yield return new WaitForSeconds(1); // TODO: remove
         }
@@ -44,10 +55,18 @@ namespace DataManager {
         private static void Finish() // todo
         {
             CustomerSpawning.CustomerSpawningManager.instance.StopSpawning();
-            if (ComplaintBook.Mismatches == 0 && ComplaintBook.Size == ItemInfos.Length) {
+            if (ComplaintBook.Mismatches == 0 && ComplaintBook.Size == ItemInfos.Length)
+            {
                 Win();
-            } else {
+            }
+            else
+            {
                 Loser();
+            }
+
+            for (int i = 0; i < ComplaintBook.Answers.Length; i++)
+            {
+                ShowBook.GetSingleton().ShowNext(i);
             }
             Computer.instance.ShowResults();
         }
@@ -58,24 +77,30 @@ namespace DataManager {
 
         #endregion
 
-        public static bool? ItemGiven(GameObject item) {
+        public static bool? ItemGiven(GameObject item)
+        {
             Computer.instance.SetPainting(new Painting(null, new Color[3])); // TODO
 
             return ComplaintBook.MakeGuess(item != null ? currentId : -1, item != null ? GetIdOfItem(item) : -1);
         }
-        public static void NextItem() {
-            do {
+        public static void NextItem()
+        {
+            do
+            {
                 currentId++;
             } while (currentId < ItemInfos.Length && ItemInfos[currentId].painting == null);
-            if (currentId >= ItemInfos.Length) {
+            if (currentId >= ItemInfos.Length)
+            {
                 Finish();
                 return;
             }
             Computer.instance.SetPainting(ItemInfos[currentId].painting);
         }
 
-        private static int GetIdOfItem(GameObject item) {
-            for (int i = 0; i < ItemInfos.Length; i++) {
+        private static int GetIdOfItem(GameObject item)
+        {
+            for (int i = 0; i < ItemInfos.Length; i++)
+            {
                 if (ItemInfos[i].model == item) { return i; }
             }
             throw new System.ArgumentException("WTF, you trying to find an object not from those, that spawned???!!?!?!!"); // TODO

@@ -3,6 +3,6 @@
         Grab,
         Drop,
         Receive,
-        Decline
+        Message
     }
 }

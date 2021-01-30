@@ -60,15 +60,11 @@ namespace Interaction {
 
         private Coroutine waitCoroutine = null; // todo
         private IEnumerator WaitCoroutine(CustomerSpawning.Customer customer) { // todo
-            for (int i = 10; i > 0; i--) {
-                yield return new WaitForSeconds(1);
-                print(i);
-            }
+            yield return new WaitForSeconds(10);
             DeclineOrder();
         }
 
-        public void DeclineOrder()
-        {
+        public void DeclineOrder() {
             SendItemToManager(null);
             waitCoroutine = null;
         }

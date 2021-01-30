@@ -5,16 +5,20 @@ using UnityEngine;
 namespace DataManager {
     public sealed class Manager : MonoBehaviour {
 
+        [SerializeField] private int itemsSpawnCount;
+        [SerializeField] private int thiefSpawnCount;
+        [SerializeField] private int extraModelsSpawnCount;
+
         private static ItemInfo[] ItemInfos { get; set; } = null;
 
-        private static int currentId = 0;
+        private static int currentId = -1;
 
-        private void Start() => StartCoroutine(Scenario());
+        private void Start() => StartCoroutine(Scenario(itemsSpawnCount, thiefSpawnCount, extraModelsSpawnCount));
 
         #region Scenario
 
-        private static IEnumerator Scenario() {
-            ItemInfos = Generator.GenerateItemInfos(100, 3);
+        private static IEnumerator Scenario(int itemsSpawnCount, int thiefSpawnCount, int extraModelsSpawnCount) {
+            ItemInfos = Generator.GenerateItemInfos(itemsSpawnCount, 3, thiefSpawnCount, extraModelsSpawnCount);
             yield return DeliverATruckOfItems();
             CustomerSpawning.CustomerSpawningManager.instance.StartSpawning();
             yield return new WaitForSeconds(1); // TODO: remove
@@ -32,7 +36,7 @@ namespace DataManager {
                     i = 0;
                     j++;
                 }
-                info.model.transform.position = new Vector3(i++ - 8f, 2, j + 5);
+                if (info.model != null) { info.model.transform.position = new Vector3(i++ - 8f, 2, j + 5); }
             }
             yield return new WaitForSeconds(1); // TODO: remove
         }
@@ -59,10 +63,12 @@ namespace DataManager {
         public static bool? ItemGiven(GameObject item) {
             Computer.instance.SetPainting(new Painting(null, new Color[3])); // TODO
 
-            return ComplaintBook.MakeGuess(currentId, item != null ? GetIdOfItem(item) : -1);
+            return ComplaintBook.MakeGuess(item != null ? currentId : -1, item != null ? GetIdOfItem(item) : -1);
         }
         public static void NextItem() {
-            currentId++;
+            do {
+                currentId++;
+            } while (currentId < ItemInfos.Length && ItemInfos[currentId].painting == null);
             if (currentId >= ItemInfos.Length) {
                 Finish();
                 return;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+
 namespace CustomerSpawning
 {
     public class CustomerMovement : MonoBehaviour

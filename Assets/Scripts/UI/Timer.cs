@@ -34,6 +34,7 @@ namespace UI {
             }
             Tick(0, startTime);
             TimeOver?.Invoke();
+            timeTextMesh.text = "";
         }
 
         private void OnDisable() { timerMaterial.SetFloat("Lerp", 0); }

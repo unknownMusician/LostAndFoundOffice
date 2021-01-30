@@ -11,7 +11,7 @@ namespace DataManager {
 
         private static ItemInfo[] ItemInfos { get; set; } = null;
 
-        private static int currentId = 0;
+        private static int currentId = -1;
 
         private void Start() => StartCoroutine(Scenario(itemsSpawnCount, thiefSpawnCount, extraModelsSpawnCount));
 

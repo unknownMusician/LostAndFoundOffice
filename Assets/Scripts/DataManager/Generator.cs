@@ -26,19 +26,24 @@ namespace DataManager {
                 Painting painting;
                 GameObject model;
 
+                bool decrementThief = false;
+                bool decrementExtraModel = false;
                 if (thiefCounter > 0) {
                     model = null;
-                    thiefCounter--;
+                    decrementThief = true;
                 } else {
                     model = GetModel(rawInfos[i], models, materials);
                 }
 
                 if (thiefCounter <= 0 && extraModelsCounter > 0) {
                     painting = null;
-                    extraModelsCounter--;
+                    decrementExtraModel = true;
                 } else {
                     painting = GetPainting(rawInfos[i], rgbs, colors);
                 }
+
+                if(decrementThief) { thiefCounter--; }
+                if(decrementExtraModel) { extraModelsCounter--; }
 
                 itemInfoList.Add(new ItemInfo(painting, model));
             }

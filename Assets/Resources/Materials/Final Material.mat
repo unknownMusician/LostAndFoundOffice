@@ -28,9 +28,9 @@ Material:
     - IsOn: 1
     - Vector1_3374EAB5: 0.2
     - Vector1_523C47C4: 0.5
-    - Vector1_5B4359AB: 0.5
-    - Vector1_A848D799: 1
+    - Vector1_5B4359AB: 0.04
+    - Vector1_A848D799: 5
     - Vector1_B4FD56A8: 2
     - Vector1_CBDB9751: 10
     m_Colors:
-    - Vector2_CE00FFE6: {r: 0, g: 0, b: 0, a: 0}
+    - Vector2_CE00FFE6: {r: -1.13, g: -1.94, b: 0, a: 0}

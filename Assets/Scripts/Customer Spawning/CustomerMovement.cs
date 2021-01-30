@@ -8,13 +8,11 @@ namespace CustomerSpawning
         #region Properties
 
         private Rigidbody rigidbodyComponent;
-        private Transform transformComponent;
         private Customer customerComponent;
 
         private CustomerSpawningManager customerSpawner;
         private AllCustomersMovingManager allCustomerMovingManager;
 
-        private bool allowMoving;
         private int IdOfCurrentRoute;                       // ID текущего маршрута (0 - вход, 1 - выход)
         private int IdOfCurrentGoalPoint;                   // ID текущей целевой точки в маршруте
         private Vector3 moveVector;                         // Вектор, направляющий customer'a от одной точки к другой
@@ -26,52 +24,17 @@ namespace CustomerSpawning
         void Awake()
         {
             rigidbodyComponent = GetComponent<Rigidbody>();
-            transformComponent = GetComponent<Transform>();
             customerComponent = GetComponent<Customer>();
 
-            customerSpawner = transformComponent.parent.parent.GetComponent<CustomerSpawningManager>();
-            allCustomerMovingManager = transformComponent.parent.parent.GetComponent<AllCustomersMovingManager>();
+            customerSpawner = transform.parent.parent.GetComponent<CustomerSpawningManager>();
+            allCustomerMovingManager = transform.parent.parent.GetComponent<AllCustomersMovingManager>();
         }
         void OnEnable()
         {
             // Запрещаем двигаться. Устанавливаем текущий маршрут. Задаём начальную позицию
-
-            allowMoving = false;
-            IdOfCurrentRoute = 0;
-            IdOfCurrentGoalPoint = 0;
-            moveVector = Vector3.zero;
-            transformComponent.position = allCustomerMovingManager.Routes[IdOfCurrentRoute][IdOfCurrentGoalPoint];
+            
+            transform.position = allCustomerMovingManager.Routes[0][0];
             EnterBuilding();
-        }
-        void FixedUpdate()
-        {
-            // Рассчитываем расстояние между текущей позицией клиента и целевой точкой
-            // Если разрешено двигаться и клиент не слишком близко к целевой точке - двигаемся с заданной скоростью
-            // Если же клиент очень близко или уже на целевой точке, то: если она не крайняя в маршруте - начинаем двигаться к следующей
-            // Если мы на последней точки маршрута ВХОДА - делаем заказ
-            // В иных случаях стоим на месте
-
-            Vector3 deltaVector = transformComponent.position - allCustomerMovingManager.Routes[IdOfCurrentRoute][IdOfCurrentGoalPoint];
-            float vectorLength = deltaVector.magnitude;
-
-            if (allowMoving)
-            {
-                if (vectorLength > 0.25f) rigidbodyComponent.velocity = moveVector * allCustomerMovingManager.speed;
-                else
-                {
-                    if ((IdOfCurrentRoute == 0) && (IdOfCurrentGoalPoint == allCustomerMovingManager.Routes[0].Length - 1))
-                    {
-                        customerComponent.MakeAnOrder();
-                    }
-                    if (!CheckIfCurrentGoalPointIsLast())
-                    {
-                        IdOfCurrentGoalPoint += 1;
-                        CalculateMoveVector();
-                    }
-                    else rigidbodyComponent.velocity = Vector3.zero;
-                }
-            }
-            else rigidbodyComponent.velocity = Vector3.zero;
         }
 
         #endregion
@@ -123,18 +86,54 @@ namespace CustomerSpawning
         {
             // Запускаем процесс входа в здание
 
-            yield return null;
-            allowMoving = true;
-            IdOfCurrentGoalPoint = 0;
+            IdOfCurrentRoute = 0;
+
+            for (int i = 1; i < allCustomerMovingManager.enterRoute.Length; i++)
+            {
+                yield return null;
+                IdOfCurrentGoalPoint = i;
+                Vector3 deltaVector = transform.position - allCustomerMovingManager.Routes[IdOfCurrentRoute][i];
+                float vectorLength = deltaVector.magnitude;
+                CalculateMoveVector();
+                while (vectorLength > 0.25f)
+                {
+                    deltaVector = transform.position - allCustomerMovingManager.Routes[IdOfCurrentRoute][i];
+                    vectorLength = deltaVector.magnitude;
+                    rigidbodyComponent.velocity = moveVector * allCustomerMovingManager.speed;
+                    Debug.Log(moveVector * allCustomerMovingManager.speed);
+                    yield return new WaitForSeconds(0.0333f);
+                }
+                rigidbodyComponent.velocity = Vector3.zero;
+            }
+
+            customerComponent.AllowRotation = false;
+            customerComponent.MakeAnOrder();
         }
         private IEnumerator ExitBuildingCoroutine()
         {
             // Запускаем процесс выхода из здания
 
             IdOfCurrentRoute = 1;
-            IdOfCurrentGoalPoint = 0;
             customerSpawner.TakeCustomer();
-            yield return new WaitForSeconds(2.5f);
+            customerComponent.AllowRotation = true;
+
+            for (int i = 1; i < allCustomerMovingManager.exitRoute.Length; i++)
+            {
+                yield return null;
+                IdOfCurrentGoalPoint = i;
+                Vector3 deltaVector = transform.position - allCustomerMovingManager.Routes[IdOfCurrentRoute][i];
+                float vectorLength = deltaVector.magnitude;
+                CalculateMoveVector();
+                Debug.Log(moveVector);
+                while (vectorLength > 0.5f)
+                {
+                    deltaVector = transform.position - allCustomerMovingManager.Routes[IdOfCurrentRoute][i];
+                    vectorLength = deltaVector.magnitude;
+                    rigidbodyComponent.velocity = moveVector * allCustomerMovingManager.speed;
+                    yield return new WaitForSeconds(0.0333f);
+                }
+                rigidbodyComponent.velocity = Vector3.zero;
+            }
             customerSpawner.PutCustomer();
         }
 

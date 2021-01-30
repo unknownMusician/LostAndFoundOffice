@@ -7,7 +7,7 @@ namespace DataManager {
 
         private static List<ItemInfo> items;
 
-        public static ItemInfo[] GenerateItemInfos(int count, int colorsForEach) {
+        public static ItemInfo[] GenerateItemInfos(int count, int colorsForEach, int thiefCount, int extraModelsCount) {
             var itemInfoList = new List<ItemInfo>();
 
             // Load
@@ -20,8 +20,27 @@ namespace DataManager {
             var rawInfos = GetRandomRawInfos(count, models.Length, colorsForEach, materials.Length);
 
             // Assign
+            int thiefCounter = thiefCount;
+            int extraModelsCounter = extraModelsCount;
             for (int i = 0; i < count; i++) {
-                itemInfoList.Add(new ItemInfo(GetPainting(rawInfos[i], rgbs, colors), GetModel(rawInfos[i], models, materials)));
+                Painting painting;
+                GameObject model;
+
+                if (thiefCounter > 0) {
+                    model = null;
+                    thiefCounter--;
+                } else {
+                    model = GetModel(rawInfos[i], models, materials);
+                }
+
+                if (thiefCounter <= 0 && extraModelsCounter > 0) {
+                    painting = null;
+                    extraModelsCounter--;
+                } else {
+                    painting = GetPainting(rawInfos[i], rgbs, colors);
+                }
+
+                itemInfoList.Add(new ItemInfo(painting, model));
             }
 
             return itemInfoList.ToArray();

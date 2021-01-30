@@ -135,7 +135,7 @@ namespace CustomerSpawning
                 }
                 rigidbodyComponent.velocity = Vector3.zero;
             }
-            if (transform.childCount == 3) transform.GetChild(2).GetComponent<Interaction.Item>().EndItem();
+            if (transform.childCount == 2) transform.GetChild(1).GetComponent<Interaction.Item>().EndItem();
             customerSpawner.PutCustomer();
         }
 

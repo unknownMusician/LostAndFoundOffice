@@ -83,8 +83,8 @@ namespace Interaction {
         }
 
         public void EndItem() {
-            if(GetComponent<FixedJoint>()) { Destroy(GetComponent<FixedJoint>()); }
-            if(GetComponent<Rigidbody>()) { Destroy(GetComponent<Rigidbody>()); }
+            if(GetComponent<FixedJoint>() != null) { Destroy(GetComponent<FixedJoint>()); }
+            if(GetComponent<Rigidbody>() != null) { Destroy(GetComponent<Rigidbody>()); }
             transform.SetParent(null);
         }
 

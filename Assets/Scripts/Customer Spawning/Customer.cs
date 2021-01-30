@@ -21,10 +21,6 @@ namespace CustomerSpawning
         {
             AllowRotation = true;
         }
-        void OnDisable()
-        {
-            if (transform.childCount == 3) transform.GetChild(2).GetComponent<Interaction.Item>().EndItem();
-        }
         void FixedUpdate()
         {
             if ((rigidbodyComponent.velocity != Vector3.zero) && (AllowRotation))

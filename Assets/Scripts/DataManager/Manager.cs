@@ -2,6 +2,7 @@
 using Assets.Scripts;
 using UI;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace DataManager
 {
@@ -12,9 +13,12 @@ namespace DataManager
         [SerializeField] private int thiefSpawnCount;
         [SerializeField] private int extraModelsSpawnCount;
 
+        public static UnityAction Fin;
+
         public static ItemInfo[] ItemInfos { get; set; } = null;
 
         private static int currentId = -1;
+        private static bool finished = false;
 
         private void Start() => StartCoroutine(Scenario(itemsSpawnCount, thiefSpawnCount, extraModelsSpawnCount));
 
@@ -27,8 +31,8 @@ namespace DataManager
             yield return DeliverATruckOfItems();
             CustomerSpawning.CustomerSpawningManager.instance.StartSpawning();
             yield return new WaitForSeconds(1); // TODO: remove
-            Timer.instance.TimeOver += Finish;
-            Timer.instance.StartTimer(ItemInfos.Length * 15);
+            Timer.TimeOver += Finish;
+            AudioManager.OnRepeatMusicStart += () => Timer.instance.StartTimer(ItemInfos.Length * 15);
         }
 
         private static IEnumerator DeliverATruckOfItems() // todo
@@ -54,7 +58,9 @@ namespace DataManager
 
         private static void Finish() // todo
         {
-            CustomerSpawning.CustomerSpawningManager.instance.StopSpawning();
+            if(finished) { return; }
+            finished = true;
+
             if (ComplaintBook.Mismatches == 0 && ComplaintBook.Size == ItemInfos.Length)
             {
                 Win();
@@ -64,11 +70,7 @@ namespace DataManager
                 Loser();
             }
 
-            for (int i = 0; i < ComplaintBook.Answers.Length; i++)
-            {
-                ShowBook.GetSingleton().ShowNext(i);
-            }
-            Computer.instance.ShowResults();
+            Fin?.Invoke();
         }
 
         private static void Win() { print("YOU WON, my kickass-MAN!!!"); } // todo

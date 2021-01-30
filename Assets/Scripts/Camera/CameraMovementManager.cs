@@ -1,13 +1,11 @@
-﻿using System.Collections;
+﻿using DataManager;
+using System.Collections;
 using UnityEngine;
 
 
 public class CameraMovementManager : MonoBehaviour
 {
-    public void MoveToComputer()
-    {
-        StartCoroutine(MoveToComputerCoroutine());
-    }
+    private void Awake() => Manager.Fin += () => StartCoroutine(MoveToComputerCoroutine());
 
     private float Easing(float x)
     {

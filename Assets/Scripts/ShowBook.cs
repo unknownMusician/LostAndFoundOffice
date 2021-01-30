@@ -1,31 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using DataManager;
+﻿using DataManager;
 using Interaction;
 using UnityEngine;
 
 namespace Assets.Scripts
 {
-    public class ShowBook : MonoBehaviour
+    public sealed class ShowBook : MonoBehaviour
     {
         public GameObject AnswerObject;
-        private static ShowBook _showBook = null;
+        public static ShowBook Instance { get; private set; } = null;
+        private ShowBook() => Instance = this;
 
-        private ShowBook()
-        {
-            _showBook = this;
+        private void Awake() => Manager.Fin += ShowAll;
+
+        public void ShowAll() {
+            for (int i = 0; i < ComplaintBook.Answers.Length; i++) { ShowNext(i); }
         }
-
-        public static ShowBook GetSingleton()
-        {
-            return _showBook;
-        }
-
-
 
         public void ShowNext(int index)
         {

@@ -8,7 +8,10 @@ namespace CustomerSpawning
         #region Instance
 
         public static CustomerSpawningManager instance = null;
-        private void Awake() => instance = this;
+        private void Awake() {
+            instance = this;
+            DataManager.Manager.Fin += StopSpawning;
+        }
         private void OnDestroy() => instance = null;
 
         #endregion

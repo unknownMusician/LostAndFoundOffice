@@ -9,7 +9,10 @@ namespace UI {
         #region Instance
 
         public static Computer instance = null;
-        private void Awake() => instance = this;
+        private void Awake() {
+            instance = this;
+            DataManager.Manager.Fin += ShowResults;
+        }
         private void OnDestroy() => instance = null;
 
         #endregion
@@ -45,12 +48,14 @@ namespace UI {
 
             var mats = transform.parent.GetComponentInChildren<MeshRenderer>().materials;
             for (int i = 0; i < mats.Length; i++) {
-                if (mats[i] == computerMaterial) {
+                print($"{mats[i].name} {computerMaterial.name}");
+                if (mats[i].name.Contains(computerMaterial.name)) {
                     mats[i] = finalMaterial;
+                    print("FOUND");
                     break;
                 }
             }
-            GetComponent<MeshRenderer>().materials = mats;
+            transform.parent.GetComponentInChildren<MeshRenderer>().materials = mats;
         }
 
         private void OnTriggerEnter(Collider other) { if (other.GetComponent<Player>() != null) { SetIsClose(true); } }

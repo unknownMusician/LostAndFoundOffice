@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class AudioManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip repeatClip;
     [SerializeField] private AudioClip endClip;
 
+    public static UnityAction OnRepeatMusicStart;
+
     private void Awake() {
         source = GetComponent<AudioSource>();
         source.clip = startClip;
@@ -15,18 +18,14 @@ public class AudioManager : MonoBehaviour
         StartCoroutine(WaitToStartRepeat());
     }
 
-    private void Update() {
-        print($"{source.time == source.clip.length}");
-    }
-
     private IEnumerator WaitToStartRepeat() {
         //while (source.time != source.clip.length) { // TODO
         //    yield return null;
         //}
-        yield return new WaitUntil(() => source.time == source.clip.length);
-        print("FUCK");
+        yield return new WaitUntil(() => source.time > source.clip.length - 0.03f);
         source.clip = repeatClip;
         source.loop = true;
         source.Play();
+        OnRepeatMusicStart?.Invoke();
     }
 }

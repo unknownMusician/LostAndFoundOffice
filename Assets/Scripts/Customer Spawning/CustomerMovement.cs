@@ -87,6 +87,7 @@ namespace CustomerSpawning
             // Запускаем процесс входа в здание
 
             IdOfCurrentRoute = 0;
+            transform.position = allCustomerMovingManager.enterRoute[0];
 
             for (int i = 1; i < allCustomerMovingManager.enterRoute.Length; i++)
             {
@@ -97,11 +98,10 @@ namespace CustomerSpawning
                 CalculateMoveVector();
                 while (vectorLength > 0.25f)
                 {
+                    yield return new WaitForSeconds(0.00033f);
                     deltaVector = transform.position - allCustomerMovingManager.Routes[IdOfCurrentRoute][i];
                     vectorLength = deltaVector.magnitude;
                     rigidbodyComponent.velocity = moveVector * allCustomerMovingManager.speed;
-                    Debug.Log(moveVector * allCustomerMovingManager.speed);
-                    yield return new WaitForSeconds(0.0333f);
                 }
                 rigidbodyComponent.velocity = Vector3.zero;
             }
@@ -116,6 +116,7 @@ namespace CustomerSpawning
             IdOfCurrentRoute = 1;
             customerSpawner.TakeCustomer();
             customerComponent.AllowRotation = true;
+            transform.position = allCustomerMovingManager.exitRoute[0];
 
             for (int i = 1; i < allCustomerMovingManager.exitRoute.Length; i++)
             {
@@ -124,13 +125,12 @@ namespace CustomerSpawning
                 Vector3 deltaVector = transform.position - allCustomerMovingManager.Routes[IdOfCurrentRoute][i];
                 float vectorLength = deltaVector.magnitude;
                 CalculateMoveVector();
-                Debug.Log(moveVector);
-                while (vectorLength > 0.5f)
+                while (vectorLength > 1.5f)
                 {
+                    yield return new WaitForSeconds(0.00033f);
                     deltaVector = transform.position - allCustomerMovingManager.Routes[IdOfCurrentRoute][i];
                     vectorLength = deltaVector.magnitude;
                     rigidbodyComponent.velocity = moveVector * allCustomerMovingManager.speed;
-                    yield return new WaitForSeconds(0.0333f);
                 }
                 rigidbodyComponent.velocity = Vector3.zero;
             }

@@ -30,8 +30,8 @@ public sealed class Player : MonoBehaviour {
         rigidBody.angularVelocity = Vector3.zero;
         if (move.magnitude == 0) { return; }
         Vector3 LookVector = Vector3.SmoothDamp(transform.rotation * Vector3.forward, new Vector3(move.x, 0, move.y), ref rotateDampVelocity, 0.1f);
-        transform.rotation = Quaternion.FromToRotation(Vector3.forward, LookVector);
-        
+        float angle = Vector2.SignedAngle(Service.Project(LookVector), Vector2.up);
+        transform.rotation = Quaternion.Euler(0, angle, 0);
     }
 
     private void InteractUpdate() {

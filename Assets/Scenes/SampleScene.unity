@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.28508648, g: 0.37000862, b: 0.48471084, a: 1}
+  m_IndirectSpecularColor: {r: 0.28508636, g: 0.3700084, b: 0.48471007, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -14263,7 +14263,7 @@ PrefabInstance:
     - target: {fileID: 3004833230828402248, guid: 914c791fb8582e649aec694e0595542e,
         type: 3}
       propertyPath: exitRoute.Array.data[0].x
-      value: 4.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3004833230828402248, guid: 914c791fb8582e649aec694e0595542e,
         type: 3}
@@ -14333,13 +14333,41 @@ PrefabInstance:
     - target: {fileID: 3004833230828402248, guid: 914c791fb8582e649aec694e0595542e,
         type: 3}
       propertyPath: enterRoute.Array.data[2].x
-      value: 4.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3004833230828402248, guid: 914c791fb8582e649aec694e0595542e,
         type: 3}
       propertyPath: enterRoute.Array.data[2].z
       value: 9.75
       objectReference: {fileID: 0}
+    - target: {fileID: 3004833230828402250, guid: 914c791fb8582e649aec694e0595542e,
+        type: 3}
+      propertyPath: allowedAmountOfCustomers
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3004833230828402250, guid: 914c791fb8582e649aec694e0595542e,
+        type: 3}
+      propertyPath: customerPrefabsArray.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3004833230828402250, guid: 914c791fb8582e649aec694e0595542e,
+        type: 3}
+      propertyPath: customerPrefabsArray.Array.data[0]
+      value: 
+      objectReference: {fileID: 7614181344438056022, guid: c5c0ed4bcaaef5242a4ac2b5754d2f72,
+        type: 3}
+    - target: {fileID: 3004833230828402250, guid: 914c791fb8582e649aec694e0595542e,
+        type: 3}
+      propertyPath: customerPrefabsArray.Array.data[1]
+      value: 
+      objectReference: {fileID: 8026469982824448179, guid: 8d33bba9d2b4dc84681d4400cd48ed21,
+        type: 3}
+    - target: {fileID: 3004833230828402250, guid: 914c791fb8582e649aec694e0595542e,
+        type: 3}
+      propertyPath: customerPrefabsArray.Array.data[2]
+      value: 
+      objectReference: {fileID: 4242537530296482921, guid: 3c13d23ffde54a940944aebdae596c03,
+        type: 3}
     - target: {fileID: 3004833230828402253, guid: 914c791fb8582e649aec694e0595542e,
         type: 3}
       propertyPath: m_RootOrder

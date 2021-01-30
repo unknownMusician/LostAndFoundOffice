@@ -11,7 +11,7 @@ namespace CustomerSpawning
         private AllCustomersMovingManager allCustomersMovingManager;
 
         public Transform customersArrayMenu;
-        public GameObject customerPrefab;
+        public GameObject[] customerPrefabsArray;
         public int allowedAmountOfCustomers;
 
         public Queue<GameObject> Pool { get; set; }
@@ -40,7 +40,7 @@ namespace CustomerSpawning
             for (int i = 0; i < allowedAmountOfCustomers; i++)
             {
                 GameObject customer = Instantiate(
-                    customerPrefab,
+                    customerPrefabsArray[i],
                     customersStartPosition,
                     Quaternion.identity,
                     customersArrayMenu

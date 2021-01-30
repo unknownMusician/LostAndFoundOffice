@@ -1,49 +1,49 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
 
-
-
-public class TutorialLogic : MonoBehaviour
+namespace Tutorial
 {
-    public Image imageContainer;
-    public Button goPreviousButton;
-    public Button goNextButton;
-    public Sprite[] tutorialPagesArray;
-
-    private int currentImage;
-
-    void Awake()
+    public class TutorialLogic : MonoBehaviour
     {
-        currentImage = 0;
-        goPreviousButton.gameObject.SetActive(false);
-    }
+        public Image imageContainer;
+        public Button goPreviousButton;
+        public Button goNextButton;
+        public Sprite[] tutorialPagesArray;
 
-    public void GoToPreviousImage()
-    {
-        if (currentImage == tutorialPagesArray.Length - 1)
+        private int currentImage;
+
+        void Awake()
         {
-            goNextButton.gameObject.SetActive(true);
-        }
-        if (currentImage == 1)
-        {
+            currentImage = 0;
             goPreviousButton.gameObject.SetActive(false);
         }
-        currentImage -= 1;
-        imageContainer.sprite = tutorialPagesArray[currentImage];
-        Debug.Log("Previous page opened");
-    }
-    public void GoToNextImage()
-    {
-        if (currentImage == tutorialPagesArray.Length - 2)
+
+        public void GoToPreviousImage()
         {
-            goNextButton.gameObject.SetActive(false);
+            if (currentImage == tutorialPagesArray.Length - 1)
+            {
+                goNextButton.gameObject.SetActive(true);
+            }
+            if (currentImage == 1)
+            {
+                goPreviousButton.gameObject.SetActive(false);
+            }
+            currentImage -= 1;
+            imageContainer.sprite = tutorialPagesArray[currentImage];
         }
-        if (currentImage == 0)
+        public void GoToNextImage()
         {
-            goPreviousButton.gameObject.SetActive(true);
+            if (currentImage == tutorialPagesArray.Length - 2)
+            {
+                goNextButton.gameObject.SetActive(false);
+            }
+            if (currentImage == 0)
+            {
+                goPreviousButton.gameObject.SetActive(true);
+            }
+            currentImage += 1;
+            imageContainer.sprite = tutorialPagesArray[currentImage];
         }
-        currentImage += 1;
-        imageContainer.sprite = tutorialPagesArray[currentImage];
-        Debug.Log("Next page opened");
     }
+
 }

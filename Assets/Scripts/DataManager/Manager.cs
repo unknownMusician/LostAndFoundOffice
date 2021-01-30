@@ -49,14 +49,12 @@ namespace DataManager {
             } else {
                 Loser();
             }
-            ShowCorrectAnswer();
+            Computer.instance.ShowResults();
         }
 
         private static void Win() { print("YOU WON, my kickass-MAN!!!"); } // todo
 
         private static void Loser() { print("you lost, you piece of shit"); } // todo
-
-        private static void ShowCorrectAnswer() { } // todo
 
         #endregion
 

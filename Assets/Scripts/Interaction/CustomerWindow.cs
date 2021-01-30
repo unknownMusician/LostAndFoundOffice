@@ -64,8 +64,7 @@ namespace Interaction {
                 yield return new WaitForSeconds(1);
                 print(i);
             }
-            SendItemToManager(null);
-            waitCoroutine = null;
+            DeclineOrder();
         }
 
         public void DeclineOrder()

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.28508636, g: 0.3700084, b: 0.48471007, a: 1}
+  m_IndirectSpecularColor: {r: 0.28508648, g: 0.37000862, b: 0.48471084, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6343,12 +6343,6 @@ PrefabInstance:
     - {fileID: 8289330290472995649, guid: 2696657e6c25a204dbddb4628cbddbc7, type: 3}
     - {fileID: 3590391212450331120, guid: 2696657e6c25a204dbddb4628cbddbc7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2696657e6c25a204dbddb4628cbddbc7, type: 3}
---- !u!1 &767624265 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6162509964043340914, guid: 13fe162f0bc40ea408e08e24351c76bf,
-    type: 3}
-  m_PrefabInstance: {fileID: 1721031046}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &770707786
 GameObject:
   m_ObjectHideFlags: 0
@@ -14171,16 +14165,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6162509962449624248, guid: 13fe162f0bc40ea408e08e24351c76bf,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 3.89
-      objectReference: {fileID: 0}
-    - target: {fileID: 6162509964043340908, guid: 13fe162f0bc40ea408e08e24351c76bf,
-        type: 3}
-      propertyPath: BlackBook
-      value: 
-      objectReference: {fileID: 767624265}
     - target: {fileID: 6162509964043340909, guid: 13fe162f0bc40ea408e08e24351c76bf,
         type: 3}
       propertyPath: m_RootOrder
@@ -18718,6 +18702,21 @@ PrefabInstance:
     - target: {fileID: 875467237487056704, guid: 6af321fceab1c54458b9a027f8c4887a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 875467237487056705, guid: 6af321fceab1c54458b9a027f8c4887a,
+        type: 3}
+      propertyPath: itemsSpawnCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 875467237487056705, guid: 6af321fceab1c54458b9a027f8c4887a,
+        type: 3}
+      propertyPath: thiefSpawnCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 875467237487056705, guid: 6af321fceab1c54458b9a027f8c4887a,
+        type: 3}
+      propertyPath: extraModelsSpawnCount
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 875467237487056706, guid: 6af321fceab1c54458b9a027f8c4887a,

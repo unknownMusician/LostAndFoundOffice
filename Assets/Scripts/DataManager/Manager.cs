@@ -63,7 +63,7 @@ namespace DataManager {
         public static bool? ItemGiven(GameObject item) {
             Computer.instance.SetPainting(new Painting(null, new Color[3])); // TODO
 
-            return ComplaintBook.MakeGuess(currentId, item != null ? GetIdOfItem(item) : -1);
+            return ComplaintBook.MakeGuess(item != null ? currentId : -1, item != null ? GetIdOfItem(item) : -1);
         }
         public static void NextItem() {
             do {

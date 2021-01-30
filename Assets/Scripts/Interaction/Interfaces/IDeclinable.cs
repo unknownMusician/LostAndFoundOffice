@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Interaction;
+﻿using Interaction;
 
-interface IDeclinable : IInteractable
+interface IMessageable : IInteractable
 {
-    void DeclineOrder();
+    void Message();
 }

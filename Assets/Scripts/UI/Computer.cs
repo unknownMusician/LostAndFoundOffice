@@ -4,6 +4,7 @@ namespace UI {
     public class Computer : MonoBehaviour {
 
         [SerializeField] private Material computerMaterial;
+        [SerializeField] private Material finalMaterial;
 
         #region Instance
 
@@ -38,6 +39,18 @@ namespace UI {
                 computerMaterial.SetColor($"Color{i + 1}", painting.colors[i]);
             }
             SetHasTexture(painting.rgbTexture != null);
+        }
+
+        public void ShowResults() {
+
+            var mats = GetComponent<MeshRenderer>().materials;
+            for (int i = 0; i < mats.Length; i++) {
+                if (mats[i] == computerMaterial) {
+                    mats[i] = finalMaterial;
+                    break;
+                }
+            }
+            GetComponent<MeshRenderer>().materials = mats;
         }
 
         private void OnTriggerEnter(Collider other) { if (other.GetComponent<Player>() != null) { SetIsClose(true); } }

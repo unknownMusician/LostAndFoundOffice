@@ -43,7 +43,7 @@ namespace UI {
 
         public void ShowResults() {
 
-            var mats = GetComponent<MeshRenderer>().materials;
+            var mats = transform.parent.GetComponentInChildren<MeshRenderer>().materials;
             for (int i = 0; i < mats.Length; i++) {
                 if (mats[i] == computerMaterial) {
                     mats[i] = finalMaterial;

@@ -60,6 +60,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0d99886b594df64bbb9783b21cbcb73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  source: {fileID: 2516018106470010471}
+  startClip: {fileID: 8300000, guid: 7f26b0c93228c574b8adc422a541e2f5, type: 3}
+  repeatClip: {fileID: 8300000, guid: 3788bd4ff53200e46b0a9609ab3394d8, type: 3}
+  endClip: {fileID: 8300000, guid: bd9ab2b18af82a9438c4afa5217796c6, type: 3}
 --- !u!82 &2516018106470010471
 AudioSource:
   m_ObjectHideFlags: 0
@@ -71,11 +75,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 085b15fc07882514487106e3311d44e7,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 3788bd4ff53200e46b0a9609ab3394d8, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7f26b0c93228c574b8adc422a541e2f5, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.148
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

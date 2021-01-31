@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.28508624, g: 0.3700081, b: 0.4847098, a: 1}
+  m_IndirectSpecularColor: {r: 0.28508648, g: 0.37000862, b: 0.48471084, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3214,7 +3214,7 @@ Transform:
   m_Children:
   - {fileID: 170315663}
   m_Father: {fileID: 575051927}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &424548937
 GameObject:
@@ -4871,8 +4871,8 @@ Transform:
   - {fileID: 198579132}
   - {fileID: 1523995216}
   - {fileID: 2046277967}
-  - {fileID: 1195509640}
   - {fileID: 410036939}
+  - {fileID: 1195509640}
   - {fileID: 301025045}
   - {fileID: 2069270360}
   m_Father: {fileID: 1881524354}
@@ -18658,21 +18658,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 875467237487056705, guid: 6af321fceab1c54458b9a027f8c4887a,
-        type: 3}
-      propertyPath: itemsSpawnCount
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 875467237487056705, guid: 6af321fceab1c54458b9a027f8c4887a,
-        type: 3}
-      propertyPath: thiefSpawnCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 875467237487056705, guid: 6af321fceab1c54458b9a027f8c4887a,
-        type: 3}
-      propertyPath: extraModelsSpawnCount
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 875467237487056706, guid: 6af321fceab1c54458b9a027f8c4887a,
         type: 3}

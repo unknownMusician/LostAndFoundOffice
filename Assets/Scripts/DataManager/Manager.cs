@@ -19,6 +19,7 @@ namespace DataManager
 
         private static int currentId = -1;
         private static bool finished = false;
+        public static bool timerEnded = false;
 
         private void Start() => StartCoroutine(Scenario(itemsSpawnCount, thiefSpawnCount, extraModelsSpawnCount));
 
@@ -32,7 +33,7 @@ namespace DataManager
             CustomerSpawning.CustomerSpawningManager.instance.StartSpawning();
             yield return new WaitForSeconds(1); // TODO: remove
             Timer.TimeOver += Finish;
-            AudioManager.OnRepeatMusicStart += () => Timer.instance.StartTimer(ItemInfos.Length * 15);
+            AudioManager.OnRepeatMusicStart += () => Timer.instance.StartTimer(ItemInfos.Length * 8);
         }
 
         private static IEnumerator DeliverATruckOfItems() // todo

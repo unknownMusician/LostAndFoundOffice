@@ -44,6 +44,7 @@ namespace UI {
                 yield return null;
             }
             Tick(0, startTime);
+            DataManager.Manager.timerEnded = true;
             TimeOver?.Invoke();
             ticking = null;
         }

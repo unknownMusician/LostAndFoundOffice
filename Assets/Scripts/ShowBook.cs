@@ -88,15 +88,10 @@ namespace Assets.Scripts
             int allCount = ComplaintBook.Answers.Length;
             float percentage = (float)rightCount / (float)allCount * 100f;
             string percentageStr = percentage.ToString();
-            int charLength = percentageStr.IndexOf('.');
+            int charLength = percentageStr.IndexOf(',');
             string finValue = charLength == -1 ? percentageStr : percentageStr.Substring(0, charLength);
-            print(rightCount);
-            print(allCount);
-            print(percentage);
-            print(percentageStr);
-            print(charLength);
-            print(finValue);
             accuracyText.text = "Точность: \n" + finValue + "%";
+            if(!Manager.timerEnded) { accuracyText.text += "/n + 1 За Скорость"; }
         }
     }
 }

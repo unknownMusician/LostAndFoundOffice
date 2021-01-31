@@ -48,7 +48,21 @@ namespace DataManager {
                 itemInfoList.Add(new ItemInfo(painting, model));
             }
 
-            return itemInfoList.ToArray();
+            return RandomizeList(itemInfoList).ToArray();
+        }
+
+        private static List<ItemInfo> RandomizeList(List<ItemInfo> list) {
+            var newList = new List<ItemInfo>();
+
+            for(int i = 0; i < list.Count; i++) {
+                if(Random.value > 0.5) {
+                    newList.Insert(0, list[i]);
+                }else {
+                    newList.Add(list[i]);
+                }
+            }
+
+            return newList;
         }
 
         #region Load

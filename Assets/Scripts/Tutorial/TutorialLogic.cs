@@ -1,5 +1,7 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 namespace Tutorial
 {
@@ -43,6 +45,10 @@ namespace Tutorial
             }
             currentImage += 1;
             imageContainer.sprite = tutorialPagesArray[currentImage];
+        }
+        public void ExitTutorial()
+        {
+            SceneManager.LoadScene("Menu");
         }
     }
 

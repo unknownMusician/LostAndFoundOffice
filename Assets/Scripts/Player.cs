@@ -1,5 +1,6 @@
 ﻿using Interaction.Service;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Interacter))]
@@ -24,6 +25,7 @@ public sealed class Player : MonoBehaviour {
     private void Update() {
         MoveUpdate();
         InteractUpdate();
+        ExitUpdate();
     }
 
     private void MoveUpdate() {
@@ -39,5 +41,13 @@ public sealed class Player : MonoBehaviour {
 
     private void InteractUpdate() {
         if (Input.GetButtonDown("GrabPlace")) { interacter.Interact(); }
+    }
+
+    private void ExitUpdate()
+    {
+        if (Input.GetButtonDown("Exit"))
+        {
+            SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+        }
     }
 }

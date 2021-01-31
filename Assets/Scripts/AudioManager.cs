@@ -16,6 +16,8 @@ public class AudioManager : MonoBehaviour
         source.clip = startClip;
         source.Play();
         StartCoroutine(WaitToStartRepeat());
+
+        DataManager.Manager.Fin += StartEndingMusic;
     }
 
     private IEnumerator WaitToStartRepeat() {
@@ -27,5 +29,11 @@ public class AudioManager : MonoBehaviour
         source.loop = true;
         source.Play();
         OnRepeatMusicStart?.Invoke();
+    }
+
+    private void StartEndingMusic() {
+        source.clip = endClip;
+        source.loop = false;
+        source.Play();
     }
 }

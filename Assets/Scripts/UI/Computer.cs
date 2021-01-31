@@ -18,10 +18,10 @@ namespace UI {
         #endregion
 
         private bool hasTexture = false;
-        private bool isClose = false;
+        private bool isClose { get; set; } = false;
 
         private void SetHasTexture(bool value) => SetIsOn((hasTexture = value) && isClose);
-        private void SetIsClose(bool value) => SetIsOn(hasTexture && (isClose = value));
+        private void SetIsClose(bool value) => SetIsOn(hasTexture & (isClose = value));
 
         private void SetIsOn(bool isOn) => computerMaterial.SetInt("IsOn", isOn ? 1 : 0);
 

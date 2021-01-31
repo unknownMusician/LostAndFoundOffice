@@ -46,6 +46,10 @@ namespace Tutorial
             currentImage += 1;
             imageContainer.sprite = tutorialPagesArray[currentImage];
         }
+        public void PlayGame()
+        {
+            SceneManager.LoadScene("SampleScene");
+        }
         public void ExitTutorial()
         {
             SceneManager.LoadScene("Menu");

@@ -97,7 +97,7 @@ namespace CustomerSpawning
                 Vector3 deltaVector = transform.position - allCustomerMovingManager.Routes[IdOfCurrentRoute][i];
                 float vectorLength = deltaVector.magnitude;
                 CalculateMoveVector();
-                while (vectorLength > 0.25f)
+                while (vectorLength > 0.5f)
                 {
                     yield return new WaitForSeconds(0.00033f);
                     deltaVector = transform.position - allCustomerMovingManager.Routes[IdOfCurrentRoute][i];

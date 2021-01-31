@@ -91,7 +91,7 @@ namespace Assets.Scripts
             int charLength = percentageStr.IndexOf(',');
             string finValue = charLength == -1 ? percentageStr : percentageStr.Substring(0, charLength);
             accuracyText.text = "Точность: \n" + finValue + "%";
-            if(!Manager.timerEnded) { accuracyText.text += "/n + 1 За Скорость"; }
+            if(!Manager.timerEnded) { accuracyText.text += "\n + 1 За Скорость"; }
         }
     }
 }

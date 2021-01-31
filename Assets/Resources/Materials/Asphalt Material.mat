@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Floor Material
+  m_Name: Asphalt Material
   m_Shader: {fileID: -6465566751694194690, guid: 5ee79af42d882e24dac5c831725d83f2,
     type: 3}
   m_ShaderKeywords: 
@@ -21,11 +21,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: f35d3ef9b2b6ae042bcad49f798b0739, type: 3}
+        m_Texture: {fileID: 2800000, guid: ae2bee25ff66ca74a8b2d841491ce2c9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: cba93ae37631fc940be7dfeaac749102, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2ec30c4893899f546b78e85250a21f3b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -33,4 +33,4 @@ Material:
     - Vector1_7AAAFE76: 0.5
     m_Colors:
     - Vector2_772C2457: {r: 0, g: 0, b: 0, a: 0}
-    - Vector2_BFE1379E: {r: 0.25, g: 0.5, b: 0, a: 0}
+    - Vector2_BFE1379E: {r: 0.1, g: 0.1, b: 0, a: 0}

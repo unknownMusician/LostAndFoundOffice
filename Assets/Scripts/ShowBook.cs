@@ -10,6 +10,7 @@ namespace Assets.Scripts
         [SerializeField] private float diffY = 0.3f;
         [SerializeField] private Camera finalCamera = null;
         [SerializeField] private float cameraSpeed = 0.1f;
+        [SerializeField] private TextMesh accuracyText = null;
 
         public GameObject AnswerObject;
         public static ShowBook Instance { get; private set; } = null;
@@ -23,6 +24,7 @@ namespace Assets.Scripts
             {
                 ShowNext(i);
             }
+            ShowAccuracy();
             StartCoroutine(Scrolling());
         }
 
@@ -79,6 +81,22 @@ namespace Assets.Scripts
                 }
                 yield return null;
             }
+        }
+
+        private void ShowAccuracy() {
+            int rightCount = (ComplaintBook.Answers.Length - ComplaintBook.Mismatches);
+            int allCount = ComplaintBook.Answers.Length;
+            float percentage = (float)rightCount / (float)allCount * 100f;
+            string percentageStr = percentage.ToString();
+            int charLength = percentageStr.IndexOf('.');
+            string finValue = charLength == -1 ? percentageStr : percentageStr.Substring(0, charLength);
+            print(rightCount);
+            print(allCount);
+            print(percentage);
+            print(percentageStr);
+            print(charLength);
+            print(finValue);
+            accuracyText.text = "Точность: \n" + finValue + "%";
         }
     }
 }

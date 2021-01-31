@@ -7,10 +7,15 @@ namespace UI {
 
         #region Instance
 
+        private Coroutine ticking = null;
+
         public static Timer instance { get; set; } = null;
         private void Awake() {
             instance = this;
-            DataManager.Manager.Fin += () => timeTextMesh.text = "";
+            DataManager.Manager.Fin += () => {
+                timeTextMesh.text = "";
+                if (ticking != null) { StopCoroutine(ticking); }
+            };
         }
         private void OnDestroy() {
             instance = null;
@@ -24,7 +29,7 @@ namespace UI {
 
         public static UnityAction TimeOver;
 
-        public void StartTimer(float seconds) => StartCoroutine(TimerTick(seconds));
+        public void StartTimer(float seconds) => ticking = StartCoroutine(TimerTick(seconds));
 
         private void Tick(float currentTime, float startTime) {
             float minutes = Mathf.FloorToInt(currentTime / 60);
@@ -40,6 +45,7 @@ namespace UI {
             }
             Tick(0, startTime);
             TimeOver?.Invoke();
+            ticking = null;
         }
     }
 }

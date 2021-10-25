@@ -12,3 +12,8 @@ Follow the below instructions to play Quoridor:
 4. Execute Lost and found office.exe.
 
 ## Screenshots
+![](https://github.com/unknownMusician/LostAndFoundOffice/blob/main/Images/Screenshots/Screenshot%201.png)
+
+![](https://github.com/unknownMusician/LostAndFoundOffice/blob/main/Images/Screenshots/Screenshot%202.png)
+
+![](https://github.com/unknownMusician/LostAndFoundOffice/blob/main/Images/Screenshots/Screenshot%203.png)

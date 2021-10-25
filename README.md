@@ -1,6 +1,8 @@
 # Lost and found office
 Lost and found office. Business simulation game with interesting gameplay
 
+![](https://github.com/unknownMusician/LostAndFoundOffice/blob/main/Images/LoafImage.png)
+
 
 ## How to start playing
 Follow the below instructions to play Quoridor:
@@ -10,5 +12,3 @@ Follow the below instructions to play Quoridor:
 4. Execute Lost and found office.exe.
 
 ## Screenshots
-
-
